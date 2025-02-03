@@ -59,16 +59,34 @@
 
 }
 
+.buttonBlue img {
+    width:1.5rem;
+    height:1.5rem;
+}
+
+
 .hyperlink {
     color: var(--color-main);
     cursor: pointer;
 }
+
+.hyperlink img {
+    width: 0.625rem;
+    height: 0.625rem;
+}
+
 
 .showMore {
     color: var(--color-main) !important;
     list-style: none;
     cursor: pointer;
 }
+
+.showMore img{
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
 .showMore::-webkit-details-marker {
     display: none;
 }
@@ -132,10 +150,6 @@ body {
 }
 
 
-
-section.main { /* temporary */
-    margin-top: 100px;
-}
 
 header.mainHeader{
     color: var(--color-dark-grey);
@@ -329,6 +343,12 @@ aside nav a{
     cursor: pointer;
 }
 
+aside nav a img{
+    width: 1.5rem;
+    height: auto;   
+}
+
+
 body[display-mode~="dark"] aside nav img {
     filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(68deg) brightness(104%) contrast(100%);
 }
@@ -365,13 +385,13 @@ section#home {
 
 
 #home #bio {
-
     margin-top: 0.625rem;
-    /* margin-right: 1rem; */
 }
 
 img#photo1 {
     height: 100%;
+    width: 8.75rem;
+    height: 11.25rem;
 }
 
 
@@ -386,8 +406,7 @@ img#photo1 {
 }
 
 #home .top #contactMeSocials {
-
-    display: none;/*  change on click */
+    display: none;
     margin-top: 1rem;
     flex-shrink: 1;
     justify-content: space-between;
@@ -408,11 +427,15 @@ img#photo1 {
 }
 
 #home .techStackIcons {
-
     display: flex;
     flex-wrap: wrap;
     column-gap: 2rem;
     row-gap: 1rem;
+}
+
+#home .techStackIcons img{
+    width: 5rem;
+    height: 5rem;
 }
 
 #home .techStackWrapper{
@@ -482,6 +505,11 @@ section#experience .top, section#education .top{
     height: 3.125rem;
     position: absolute;
     margin-left: -3.8rem;
+}
+
+.plateShadow .elementsWrapper .element .logoWrapper img {
+    width: 100%;
+    height: auto;
 }
 
 .plateShadow .textWrapper {
@@ -820,6 +848,10 @@ section#aboutMe {
     flex-wrap: wrap;
 }
 
+#aboutMe .socials img {
+    height: 2.5rem;
+}
+
 
 
 section#contactMe {
@@ -856,8 +888,13 @@ section#contactMe {
     column-gap: 0.5rem;
 }
 
+#contactMe #photo3 {
+    width: 8.75rem;
+    height: 10.625rem;
+}
 
-@media(max-width: 940px){
+
+@media(max-width: 58.75rem){
     aside.sideNav {
         display: none;
     }
@@ -883,7 +920,7 @@ section#contactMe {
 }
 
 
-@media(max-width: 650px){
+@media(max-width: 40.625rem){
     :root  {
         --font-regular-to-small: 0.75rem;
     }
@@ -1013,7 +1050,7 @@ section#contactMe {
     }
 }
 
-@media(max-width: 470px){
+@media(max-width: 29.375rem){
     #buttonsHome1 {
         display: none !important;
     }
@@ -1023,13 +1060,13 @@ section#contactMe {
     }
 }
 
-@media(max-width:  440px){
+@media(max-width:  27.5rem){
     #contactGmailBr {
         display: block !important;
     }
 }
 
-@media(max-width: 360px){
+@media(max-width: 22.5rem){
     header.mainHeader nav a:nth-child(6) {
         display: none;
     }

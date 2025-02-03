@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "debugtheduck": "file:",
+    "sqlite3": "^5.1.7"
+  },
+  "name": "debugtheduck",
+  "version": "1.0.0",
+  "description": "Personal website of Ruslan Abduramanov (debugtheduck)",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --watch --env-file=.env index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "portfolio"
+  },
+  "author": "debugtheduck (Ruslan Abduramanov)",
+  "license": "MIT"
+}

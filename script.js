@@ -6,6 +6,8 @@ window.addEventListener("load", (event) => {
     setSiteState(isMobileSite)
     let isMobileState = getIsMobileAttribute()
 
+    setTopMargin(isMobileState)
+
     if (isMobileState == "true") {
         adaptationMobile()
     } else {
@@ -13,6 +15,8 @@ window.addEventListener("load", (event) => {
     }
 
     addListeners()
+
+    changingAboutMeTextFunction()
 })
 
 function addListeners() {
@@ -23,7 +27,6 @@ function addListeners() {
         navButton.addEventListener("click", (e) => {headerNavControl(e)})
     }
 
-    // for (let i = 0; i < contactMeButtons.length; i++) {
     for (let contactMeButton of contactMeButtons) {
         contactMeButton.addEventListener("click", function () {contactMeRouting()})
     }
@@ -181,12 +184,6 @@ const navButtonsHeader = [headerNavHome, headerNavProjects, headerNavExperience,
 
 
 function sideNavControl(e) {
-    // if (e.target.id.slice(0, 7) == "sideNav") {
-    //     var sectionName = e.target.id.slice(7).toLowerCase()
-    // } else {
-    //     var sectionName = e.target.id.slice(6).toLowerCase()
-    // }
-
     var sectionName = e.target.id.slice(7).toLowerCase()
     
     hideAllSections()
@@ -199,8 +196,6 @@ function sideNavControl(e) {
 }
 
 function headerNavControl(e) {
-    console.log(e)
-
     var sectionName = e.target.id.slice(6).toLowerCase()
     isMobileState = getIsMobileAttribute()
 
@@ -214,7 +209,7 @@ function headerNavControl(e) {
         showNavButton(sectionName)
 
     } else {
-        
+        scrollToSection(sectionName)
     }
 }
 
@@ -226,6 +221,10 @@ function hideAllSections() {
 
 function showSection(sectionName) {
     pageSections[sectionName][0].style.display = "flex"
+}
+
+function scrollToSection(sectionName) {
+    pageSections[sectionName][0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
 }
 
 function hideNavButtons() {
@@ -267,7 +266,7 @@ function changeShowMoreText(showMoreContainer, isVisible) {
         showMoreContainer.innerHTML = "Show less <img src='img/icons/other/show-more-icon.svg' alt='arrow icon'>"
     } else {
         showMoreContainer.innerHTML = "Show more <img src='img/icons/other/show-more-icon.svg' alt='arrow icon'>"
-    }
+    } 
 }
 
 function getShowMoreState(showMoreContainer) {
@@ -299,9 +298,9 @@ function changeShowMoreVisibilityAttribute(showMoreContainer, isActive) {
 const aboutMeChangingText = document.querySelector("#aboutMeChangingText")
 
 async function changingAboutMeTextFunction() {
-    professions = ["Web-Developer", "Graphic-Designer", "Web-Designer"]
+    professions = ["Web-Developer", "Graphic-Designer", "Web-Designer", "Telegram-Bot-Developer"]
     for (profession of professions) {
-        aboutMeChangingText.innerHTML = "" 
+        aboutMeChangingText.innerHTML = ""
         await changingAboutMeText(profession)
     }
     await changingAboutMeTextFunction()
@@ -315,8 +314,6 @@ async function changingAboutMeText(currentState) {
     await sleep(1000)
 }
 
-changingAboutMeTextFunction()
-
 
 // CONTACT ME
 const contactMeButtons = document.getElementsByClassName("contactMeButton") 
@@ -329,27 +326,36 @@ function contactMeRouting() {
         pageSections["contactme"][0].style.display = "flex"
         hideNavButtons()
         pageSections["contactme"][1].setAttribute("isActive", "true")
+    } else {
+        scrollToSection("contactme")
     }
 }
 
 // MOBILE ADAPTATiON
 
+const sectionMain = document.querySelector("section.main")
+
 window.addEventListener("resize", () => {
-    let windowWidth = window.innerWidth
+    rem = Number(window.getComputedStyle(document.body).getPropertyValue('font-size').slice(0, 2))
+
+    let windowWidth = Number(window.innerWidth) / rem
     let isMobileSite = getIsMobileAttribute()
 
-    console.log(isMobileSite)
-
-    if (windowWidth <= 650 && isMobileSite == "false") {
+    if (windowWidth <= 40.625 && isMobileSite == "false") {
         adaptationMobile()
-    } else if (windowWidth > 650 && isMobileSite == "true") {
+    } else if (windowWidth > 40.625 && isMobileSite == "true") {
         adaptationPC()
     }
+
+    setTopMargin(isMobileSite)
 })
 
 
 function isMobile() {
-    if (window.innerWidth <= 650) {
+    // if (window.innerWidth <= 650) {
+    rem = Number(window.getComputedStyle(document.body).getPropertyValue('font-size').slice(0, 2))
+
+    if (window.innerWidth / rem <= 40.625) {
         return true
     } else {
         return false
@@ -362,6 +368,16 @@ function getIsMobileAttribute() {
 
 function setSiteState(isMobileSite) {
     body.setAttribute("isMobile", isMobileSite)
+}
+
+function setTopMargin(isMobileState) {
+    if (isMobileState == "true") {
+        var marginTopValue = "5rem"
+    } else {
+        var marginTopValue = "6.25rem"
+    }
+
+    sectionMain.style.marginTop = marginTopValue
 }
 
 function adaptationMobile() {
@@ -378,6 +394,8 @@ function adaptationPC() {
     for (var key in pageSections) {
         pageSections[key][0].style.display = "none"
     }
-
     sectionHome.style.display = "flex"
+
+    hideNavButtons()
+    showNavButton("home")
 }
