@@ -1,14 +1,18 @@
 {
   "dependencies": {
+    "colors": "^1.4.0",
     "debugtheduck": "file:",
+    "express": "^4.21.2",
+    "install": "^0.13.0",
     "sqlite3": "^5.1.7"
   },
   "name": "debugtheduck",
   "version": "1.0.0",
   "description": "Personal website of Ruslan Abduramanov (debugtheduck)",
-  "main": "index.js",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "node --watch --env-file=.env index"
+    "test": "node --watch --env-file=.env app"
   },
   "repository": {
     "type": "git",

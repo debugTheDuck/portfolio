@@ -89,6 +89,25 @@ function changeIconsLight() {
 
 // HOME SECTiON
 
+// hide CVs
+const CVLanguageWrapper = document.querySelector(".CVLanguageWrapper")
+const showCVs = document.querySelectorAll(".showCV")
+CVLanguageWrapper.addEventListener("click", changeCVChoosingAttribute)
+showCVs.forEach(showCV => {
+    showCV.addEventListener("click", changeCVChoosingAttribute)
+})
+
+function changeCVChoosingAttribute() {
+    let currentState = CVLanguageWrapper.getAttribute("isActive")
+    if (currentState == "true") {
+        var newState = "false"
+    } else {
+        var newState = "true"
+    }
+
+    CVLanguageWrapper.setAttribute("isActive", newState)
+}
+
 //contact me
 const homeContactMeButton1 = document.querySelector("#homeContactMeButton1")
 const homeContactMeButtonIcon1 = document.querySelector("#homeContactMeButtonIcon1")
@@ -346,8 +365,6 @@ window.addEventListener("resize", () => {
     } else if (windowWidth > 40.625 && isMobileSite == "true") {
         adaptationPC()
     }
-
-    setTopMargin(isMobileSite)
 })
 
 
@@ -386,6 +403,8 @@ function adaptationMobile() {
     for (var key in pageSections) {
         pageSections[key][0].style.display = "flex"
     }
+
+    setTopMargin("true")
 }
 
 function adaptationPC() {
@@ -398,4 +417,6 @@ function adaptationPC() {
 
     hideNavButtons()
     showNavButton("home")
+
+    setTopMargin("false")
 }
