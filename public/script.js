@@ -1,6 +1,8 @@
 // ONLOAD FUNCTION
 window.addEventListener("load", (event) => {
     console.log("page is fully loaded")
+    let displayTheme = localStorage.getItem("displayTheme") || "light"
+    changeDisplayTheme(displayTheme)
 
     let isMobileSite = isMobile()
     setSiteState(isMobileSite)
@@ -42,16 +44,25 @@ const headerDisplayModeButton = document.querySelector("#headerDisplayModeButton
 const sideNavDisplayModeButton = document.querySelector("#sideNavDisplayModeButton")
 
 
-headerDisplayModeButton.addEventListener('click', function () {changeDisplayTheme()})
-sideNavDisplayModeButton.addEventListener('click', function () {changeDisplayTheme()})
+headerDisplayModeButton.addEventListener('click', function () {changeDisplayThemeFunction()})
+sideNavDisplayModeButton.addEventListener('click', function () {changeDisplayThemeFunction()})
 
 
-function changeDisplayTheme () {
-    if (getCurrentDisplayTheme() == "light") {
-        var mode = "dark"
+function changeDisplayThemeFunction() {
+    currentTheme = getCurrentDisplayTheme()
+
+    if (currentTheme == "light") {
+        var newTheme = "dark"
     } else {
-        var mode = "light"
+        var newTheme = "light"
     }
+
+    changeDisplayTheme(newTheme)
+}
+
+
+function changeDisplayTheme (mode) {
+    localStorage.setItem("displayTheme", mode)
 
     changeDisplayThemeTo(mode)
 

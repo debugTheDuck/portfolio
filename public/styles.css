@@ -132,6 +132,9 @@ h1, h2, h3, h4, h5{
 }
 
 
+html:has(body[display-mode~="dark"]) {
+    scrollbar-color: #302B37 #1B181F;
+}
 
 body {
     margin: 0;
@@ -139,13 +142,11 @@ body {
     font-size: var(--font-regular);
     background-color: var(--color-background);
     color: var(--color-text);
-
     display: flex;
     flex-direction: column; 
     width: clamp(0px, calc(100% - 2.5rem), 56.25rem);
     margin: 0 auto;
     padding: 0 1.25rem;
-
     cursor:default;
 }
 

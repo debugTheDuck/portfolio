@@ -1,5 +1,5 @@
 const translations = {
-    ru: {
+    en: {
         
     }
 }
