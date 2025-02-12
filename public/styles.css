@@ -492,6 +492,10 @@ img#photo1 {
     column-gap: 2rem;
     row-gap: 1rem;
 }
+#home .techStackIcons::after {
+    content: "";
+    width: 4.25rem;
+}
 
 #home .techStackIcons img{
     width: 4.5rem;
@@ -619,7 +623,12 @@ section#projects {
 #projects #projectsDefault {
     display: flex;
     flex-direction: column;
-    row-gap: 0.45rem;
+}
+
+#projects #projectsDefault > .top{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.625rem;
 }
 
 #projects #projectsDefault > .top  > div {
@@ -630,6 +639,7 @@ section#projects {
 
 
 #projects #projectsDefault .projectsWrapper {
+    margin-top: 1rem;
     column-gap: 2%;
     display: flex;
     justify-content: space-between;
@@ -647,13 +657,14 @@ section#projects {
     height: auto;
 }
 
-#projects #projectsDefault #webDev {
+#projects #projectsDefault #webDevEn, #webDevRu {
     width: 100%;
     height: auto;
 }
 
-#webDev, #graphDesign, #webDesign, #sideProjects {
+#webDevRu, #graphDesignRu, #webDesignRu, #sideProjectsRu, #webDevEn, #graphDesignEn, #webDesignEn, #sideProjectsEn {
     cursor: pointer;
+    border-radius: 0.25rem;
 }
 
 #projects #projectsDefault .graphDesignWrapper {
@@ -661,7 +672,7 @@ section#projects {
     height: auto;
 }
 
-#projects #projectsDefault #graphDesign {
+#projects #projectsDefault #graphDesignEn, #graphDesignRu {
     width: 100%;
     height: auto;
 }
@@ -677,7 +688,7 @@ section#projects {
     height: auto;
 }
 
-#projects #projectsDefault #webDesign {
+#projects #projectsDefault #webDesignEn, #webDesignRu {
     width: 100%;
     height: auto;
 }
@@ -687,7 +698,7 @@ section#projects {
     height: auto;
 }
 
-#projects #projectsDefault #sideProjects {
+#projects #projectsDefault #sideProjectsEn, #sideProjectsRu {
     width: 100%;
     height: auto;
 }
@@ -872,9 +883,6 @@ section#aboutMe {
 
 }
 
-#aboutMe .top .text {
-    max-width: 23.75rem;
-}
 
 #aboutMe .top .languages {
     display: flex;
@@ -975,7 +983,7 @@ section#contactMe {
 
     #home .top #bio {
 
-        margin-right: 1rem;
+        margin-right: 0.5rem;
     }
 }
 
@@ -1037,11 +1045,14 @@ section#contactMe {
 
     #home .techStackIcons {
         column-gap: 1.2rem;
+        justify-content: space-between;
     }
-
 
     #projects #projectsDefault .top .buttonBlue {
         display: none;
+    }
+    #projects #projectsDefault .projectsWrapper {
+        margin-top: 0;
     }
 
     #projects #projectsDefault .top {
@@ -1051,7 +1062,7 @@ section#contactMe {
     }
 
     #projects #projectsDefault {
-        row-gap: 1.25rem;
+        row-gap: 0.9375rem;
     }
 
     .projectsChoosingWrapper #portfolioSearch::-webkit-input-placeholder {

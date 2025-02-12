@@ -4,6 +4,7 @@ import url from "url"
 
 // routers import
 import home from "./routes/home.js"
+import api from "./routes/api.js"
 
 // middleware import
 import logger from "./middleware/logger.js"
@@ -26,6 +27,7 @@ app.use(logger)
 
 // routing
 app.use("/home", home)
+app.use("/api", api)
 
 // 404 handling
 app.get("*", (req, res) => {
