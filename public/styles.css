@@ -823,7 +823,7 @@ section#projects {
     border-radius: 0 0 5px 5px;
 }
 
-.projectsChoosingWrapper .portfoliosWrapper .portfolioContentWrapper .nothingHere {
+.projectsChoosingWrapper .portfoliosWrapper .portfolioContentWrapper #nothingHere {
     padding: 0 0.625rem;
     margin-top: 1.25rem;
     display: flex;
@@ -831,11 +831,11 @@ section#projects {
     align-items: center;
 }
 
-.projectsChoosingWrapper .nothingHere .imgWrapper {
+.projectsChoosingWrapper #nothingHere .imgWrapper {
     max-width: 31.25rem;
 }
 
-.projectsChoosingWrapper .nothingHere .imgWrapper img {
+.projectsChoosingWrapper #nothingHere .imgWrapper img {
     width: 100%;
     height: auto;
 }

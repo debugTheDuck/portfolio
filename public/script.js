@@ -26,6 +26,8 @@ window.addEventListener("load", (event) => {
     changingAboutMeTextFunction()
 })
 
+const HOST_ROUTE = "http://localhost:7777" // change this
+
 function addListeners() {
     for (let navButton of navButtonsSide) {
         navButton.addEventListener("click", (e) => {sideNavControl(e)})
@@ -37,6 +39,8 @@ function addListeners() {
     for (let contactMeButton of contactMeButtons) {
         contactMeButton.addEventListener("click", function () {contactMeRouting()})
     }
+    
+    projectsControl()
 }
 
 const sleep = (ms) => {
@@ -276,7 +280,10 @@ function changeLanguage(language) {
     let sidebarSwitchEn = document.querySelector("#languageEnSegment")
     let sidebarSwitchRu = document.querySelector("#languageRuSegment")
     translationElements.forEach(translationElement => {
-        translationElement.innerHTML = translations[language][translationElement.getAttribute("data-translation")] || translationElement.innerHTML
+        try{
+            translationElement.innerHTML = translations[language][translationElement.getAttribute("data-translation")] || translationElement.innerHTML
+        } catch(err) {
+        }
     })
 
 
@@ -509,8 +516,33 @@ function showNavButton(sectionName) {
 // PROJECTS SECTiON
 
 // get projects
-const webDebButtons = [document.getElement]
+const webDevButtons = [document.getElementById("webDevEn"), document.getElementById("webDevRu")]
+const webDesignButtons = [document.getElementById("webDesignEn"), document.getElementById("webDesignRu")]
+const graphDesignButtons = [document.getElementById("graphDesignEn"), document.getElementById("graphDesignRu")]
+const sideProjectsButtons = [document.getElementById("sideProjectsEn"), document.getElementById("sideProjectsRu")]
+const projectButtons = [webDevButtons, webDesignButtons, graphDesignButtons, sideProjectsButtons]
 
+const projectsURL = {
+    "webDev": "/web-development",
+    "webDesign": "/web-design",
+    "graphDesign": "/graphical-dessign",
+    "sideProjects": "/side-projects",
+}
+
+function projectsControl() {
+    projectButtons.forEach(projectTypeButtons =>{
+        for (button of projectTypeButtons) {
+            button.addEventListener("click", function() {goToProjectPage(button.id.slice(0, button.id.length - 2))})
+        }
+    })
+}
+
+function goToProjectPage(keyToUrl) {
+    const goToUrl = projectsURL[keyToUrl]
+    window.location.href = `${HOST_ROUTE}/projects${goToUrl}`
+}
+
+projectsControl()
 
 
 // EXPERiENCE SECTiON

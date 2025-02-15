@@ -10,10 +10,16 @@ export const getProjects = async (project_type) => {
 
     let sql
 
-    if (project_type == "web_development") {
+    if (project_type == "web-development") {
+        sql = "SELECT * FROM web_dev"
+    } else if (project_type == "web-design") {
         sql = "SELECT * FROM web_design"
-    } 
-
+    } else if (project_type == "side-projects") {
+        sql = "SELECT * FROM side_projects"
+    } else if (project_type == "graphic-design") {
+        sql = "SELECT * FROM graph_design"
+    }
+ 
     const params = []
 
     try {
