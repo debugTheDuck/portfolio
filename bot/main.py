@@ -11,7 +11,8 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 from middleware.is_admin import AdminMiddleware
 
 # ROUTERS
-from handlers.commands import commands_router
+from handlers.menu import commands_router
+from FSM.projects import FSM_projects_router
 
 # BOT START
 async def start():
@@ -24,6 +25,7 @@ async def start():
     # ROUTERS
     dp.include_routers(
         commands_router,
+        FSM_projects_router,
     )
 
     # DELETiNG WEB HOOK

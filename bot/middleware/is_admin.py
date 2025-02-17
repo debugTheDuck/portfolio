@@ -3,10 +3,8 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 
 from typing import Any, Callable, Dict, Awaitable
-from aiogram import Bot, Dispatcher, Router, BaseMiddleware, F, types
-from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery, TelegramObject
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram import BaseMiddleware
+from aiogram.types import Message, CallbackQuery
 
 
 load_dotenv(join(dirname(__file__), "../", "../", ".env"))
@@ -20,6 +18,5 @@ class AdminMiddleware(BaseMiddleware):
         event: Message,
         data: Dict[str, Any],
     ) -> Any:
-        print(event.from_user.id)
         if str(event.from_user.id) in LIST_OF_ADMINS:
             return await handler(event, data)

@@ -40,7 +40,7 @@ const addProject = (data) => {
     // PROJECT_NAME //might include <a href="" class="hyperlink">NAME OF PROJECT</a> // [en, ru]
     // PREVIEW_PATH // if not included, searching for PROJECT_NAME.jpg // [en, ru]
     // DESCRIPTION // text // [en, ru]
-    // CONTENT // should be in this format [["TEXT", "txt"], ["PATH_TO_IMAGE", "jpg"], ["HTML", "html"], ...] 
+    // CONTENT // should be in this format [["TEXT", "txt"], ["IMAGE_ID", "jpg"], ["HTML", "html"], ...] 
     // ]
 
     const db = new sqlite3.Database("projects.db", sqlite3.OPEN_READWRITE)
