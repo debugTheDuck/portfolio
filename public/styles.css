@@ -718,6 +718,7 @@ section#projects {
     display: flex;
     background-color: var(--color-dark);
     justify-content: space-between;
+    column-gap: 1rem;
     align-items: center;
     padding: 0.5rem 0.625rem;
 }
@@ -788,7 +789,7 @@ section#projects {
     }
 }
 
-.projectsChoosingWrapper .portfolioElementsWrapper {
+.projectsChoosingWrapper #portfolioElementsWrapper {
     display: grid;
     grid-template-columns: repeat(2, calc(50% - 0.3125rem));
     column-gap: 0.625rem;
@@ -802,6 +803,7 @@ section#projects {
     display: flex;
     row-gap: 0.625rem;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .projectsChoosingWrapper .portfolioElement .imgWrapper{
@@ -815,7 +817,7 @@ section#projects {
 }
 
 
-.portfolioContentWrapper {
+.projectsChoosingWrapper .portfolioContentWrapper {
     display: flex;
     flex-direction: column;
     padding: 1.25rem 0.625rem 2.5rem;
@@ -840,6 +842,15 @@ section#projects {
     height: auto;
 }
 
+.projectsChoosingWrapper .portfolioContentWrapper img{
+    width: 100%;
+    height: auto;
+}
+
+.projectsChoosingWrapper .portfolioContentWrapper .text {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
 
 
 
@@ -1088,7 +1099,7 @@ section#contactMe {
         }
     }
 
-    .projectsChoosingWrapper .portfoliosWrapper .portfolioElementsWrapper{
+    .projectsChoosingWrapper .portfoliosWrapper #portfolioElementsWrapper{
         padding-top: 0.625rem;
         row-gap: 0.625rem;
     }

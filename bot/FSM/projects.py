@@ -7,10 +7,11 @@ from dotenv import load_dotenv
 
 from other import keyboards
 from databases import db_projects
-from other.functions import delete_previous_keyboard, send_final_project
+from other.functions import delete_previous_keyboard, save_content_img ,send_final_project
 
 load_dotenv(join(dirname(__file__), "../", "../", ".env"))
 RULES_LINK = os.getenv("RULES_LINK")
+PORTFOLIO_LINK = "http://localhost:7777" # CHANGE THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # data should be in this format [
 # PROJECT_TYPE # web_dev, web_design, graph_design or side_projects
@@ -107,7 +108,7 @@ async def fsm_projects_add_description(msg: types.Message, bot: Bot, state: FSMC
     description = msg.text
 
     await msg.answer(
-        text = f"Send content according to <a href='{RULES_LINK}'>rules</a>", # CHANGE SiTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        text = f"Send content according to <a href='{RULES_LINK}'>rules</a>",
         reply_markup = keyboards.projects_add_back_ikb("project_description"),
         parse_mode = "HTML"
     )
@@ -324,10 +325,6 @@ async def fsm_projects_add_content(msg: types.Message, bot: Bot, state: FSMConte
 
     current_translation = [content_content, content_content_type]
     content_without_translation = data[f"content{counter_translation}"]
-    
-    await msg.answer(
-        f"{content_without_translation}" # DEBUG
-    )
 
     content_final = {f"content{counter_translation}": [content_without_translation, current_translation]}
     await state.update_data(content_final)
@@ -358,13 +355,31 @@ async def fsm_projects_add_content(msg: types.Message, bot: Bot, state: FSMConte
             text = "Add project to database?",
             reply_markup = keyboards.projects_add_translation_accept_ikb())
         return
-    
+
 
 @FSM_projects_router.callback_query(F.data == "projects_add_translation_accept")
 async def cb_projects_add_translation_accept(cb: types.CallbackQuery, bot: Bot, state: FSMContext):
-    data = await state.get_data()
-    await db_projects.add_project(data)
+    try:
+        data = await state.get_data()
+        new_data = await save_content_img(bot, data)
+        unique_hash = await db_projects.get_hash(data["project_type"], data["project_name"])
+        await db_projects.add_project(new_data)
+        await cb.message.edit_text(
+            text = f"Project was successfully added. You can watch it here:\n\n{PORTFOLIO_LINK}/projects/{data['project_type']}/en/{unique_hash}\n{PORTFOLIO_LINK}/projects/{data['project_type']}/ru/{unique_hash}",
+            reply_markup = keyboards.projects_action_ikb()
+        )
 
+    except Exception as e:
+        await cb.message.edit_text(
+            text = f"Something went wrong: {e}"
+        )
+
+        await asyncio.sleep(2)
+
+        await cb.message.answer(
+            text = "Oh, my superior, what do you want to do with your glorious projects?",
+            reply_markup = keyboards.projects_action_ikb()
+        )
 
 
 
@@ -408,31 +423,3 @@ async def cb_router_projects(cb: types.CallbackQuery, bot: Bot, state: FSMContex
             text = "Oh, my superior, what do you want to do with your glorious projects?",
             reply_markup = keyboards.projects_action_ikb()
         )
-
-
-
-
-
-    # try:
-    #     file_id = msg.document.file_id
-    #     file = await bot.get_file(file_id)
-    #     await bot.download_file(
-    #         file_path,
-    #         "text.txt"
-    #     )
-    # except Exception:
-    #     await msg.answer(
-    #         text = f"Something went wrong while downloading file: {Exception}",
-    #         reply_markup = None 
-
-    #         await asyncio.sleep(2)
-
-    #         await msg.answer(
-    #             text = "Send project preview as a file",
-    #             reply_markup = keyboards.projects_add_back_ikb("project_img")
-    #         )
-    #     )
-
-
-# await state.update_data(content_type = content_type)
-# data = await state.get_data()

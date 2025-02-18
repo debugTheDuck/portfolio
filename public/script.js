@@ -16,8 +16,8 @@ window.addEventListener("load", (event) => {
         adaptationPC()
     }
 
-    language = localStorage.getItem("language")
-    if (changeLanguage) {
+    const language = localStorage.getItem("language")
+    if (language) {
         changeLanguage(language)
     }
 
@@ -525,31 +525,29 @@ const projectButtons = [webDevButtons, webDesignButtons, graphDesignButtons, sid
 const projectsURL = {
     "webDev": "/web-development",
     "webDesign": "/web-design",
-    "graphDesign": "/graphical-dessign",
+    "graphDesign": "/graphic-design",
     "sideProjects": "/side-projects",
 }
 
 function projectsControl() {
-    projectButtons.forEach(projectTypeButtons =>{
-        for (button of projectTypeButtons) {
+    for (let projectTypeButtons of projectButtons) {
+        for (let button of projectTypeButtons) {
             button.addEventListener("click", function() {goToProjectPage(button.id.slice(0, button.id.length - 2))})
         }
-    })
+    }
 }
 
 function goToProjectPage(keyToUrl) {
-    const goToUrl = projectsURL[keyToUrl]
+    console.log(keyToUrl)
+    var goToUrl = projectsURL[keyToUrl]
     window.location.href = `${HOST_ROUTE}/projects${goToUrl}`
 }
-
-projectsControl()
 
 
 // EXPERiENCE SECTiON
 
 // change summary button position
 const plateSummaryButton = document.querySelector(".plateShadow details summary")
-
 
 plateSummaryButton.addEventListener("click", (e) => {changeSummaryButton(e)})
 

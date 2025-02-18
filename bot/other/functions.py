@@ -50,34 +50,48 @@ async def send_final_project(msg: types.Message, data):
                 )
         
 
-async def save_content_img(bot: Bot, data):
+async def save_content_img(bot: Bot, data: dict):
     """Saves content images to a folder"""
 
     project_type = data["project_type"]
     project_name = data["project_name"]
     project_img = data["project_img"]
     project_content_counter = int(data["counter"])
-    project_content = {f"content{i+1}": data[f"content{i+1}"] for i in range(project_content_counter)}
+    # project_content = {f"content{i+1}": data[f"content{i+1}"] for i in range(project_content_counter)}
 
     for i in range(2):
         file_id = project_img[i]
+
+        data["project_img"][i] = "preview.jpg"
 
         path = Path(f"public/img/projects/{project_type}/{(project_name[0].replace(' ', '-'))[0:15]}/{['en', 'ru'][i]}/")
         path_preview = Path.joinpath(path, "preview.jpg")
 
         try:
             path.mkdir(parents=True, exist_ok=True)
-            print(f'Directories "{path}" created.')
-        except Exception as e:
-            print(f'An error occurred: {e}')
+        except Exception:
+            pass
 
         await bot.download(
             file = file_id,
             destination = path_preview
         )
 
-        # project_img[i] = f"./content_images/{project_name[i]}.jpg"
-        # for content in project_content.items():
-        #     content_current = content[1][i]
-        #     content_type = content_current[1]
-        #     content_content = content_current[0]
+        # downloading files and changing names
+        for k in range(project_content_counter):
+            content = data[f"content{k+1}"][i]
+            content_content = content[0]
+            content_type = content[1]
+
+            if content_type == "jpg":
+                file_id = content_content
+                path_content = Path.joinpath(path, f"content{k+1}.jpg")
+
+                await bot.download(
+                    file = file_id,
+                    destination = path_content
+                )
+
+                data[f"content{k+1}"][i][k] = f"content{k+1}.jpg"
+
+    return data

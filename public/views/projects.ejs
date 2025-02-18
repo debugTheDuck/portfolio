@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,21 +18,24 @@
                 <h1 data-translation="projects-heading">Projects</h1>
                 <div class="portfoliosWrapper">
                     <header>
-                        <h3 id="portfolioHeader" data-translation="projects-portfolio-heading"><%= projectType %></h3>
+                        <h3 id="portfolioHeader"><%= projectType %></h3>
                         <div class="buttonsWrapper">
                             <search>
                                 <form action="POST">
-                                    <a href="#portfolioSearch"><img src="../img/icons/button-icons/search-icon.svg" alt="search icon"></a><input name="portfolioSearch" id="portfolioSearch" placeholder="Find something...">
+                                    <a href="#portfolioSearch"><img src="/img/icons/button-icons/search-icon.svg" alt="search icon"></a><input name="portfolioSearch" id="portfolioSearch" placeholder="Find something...">
                                 </form>
                             </search>
-                            <button class="buttonBlue" id="portfolioHeaderButton" state="backToChoosingPortfolio" data-translation="back">Back <img src="../img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow icon" style="transform: rotate(180deg);"></button>
+                            <button class="buttonBlue" id="portfolioHeaderButton" state="backHome" data-translation="back">Back <img src="/img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow icon" style="transform: rotate(180deg);"></button>
                         </div>
                     </header>
-                    <div class="portfolioElementsWrapper">
+                    <div id="portfolioElementsWrapper">
+                        <template>
+                            <div class="portfolioElement">
+                                <img src="/img/project-previews/web-design-demo.png">
+                                <h5>Title</h5>
+                            </div>
+                        </template>
                         <!-- <div class="portfolioElement">
-                            <img src="../img/project-previews/web-design-demo.png">
-                            <h5>Title</h5>
-                        </div><div class="portfolioElement">
                             <img src="../img/project-previews/web-design-demo.png">
                             <h5>Title</h5>
                         </div><div class="portfolioElement">
@@ -49,7 +52,7 @@
                     <div class="portfolioContentWrapper" style="display: none;">
                         <div id="nothingHere" style="display: none;">
                             <div class="imgWrapper">
-                                <img src="../img/illustrations/nothing-in-here-illustration.svg" alt="nothing in here. i'm going to add more cases soon">
+                                <img src="/img/illustrations/nothing-in-here-illustration.svg" alt="nothing in here. i'm going to add more cases soon">
                             </div>  
                         </div>
                     </div>
@@ -59,18 +62,133 @@
     </section>
 
     <script>
-        // fetch content from API
-        content = JSON.parse('<%-JSON.stringify(content)%>')
-        console.log(JSON.stringify(content) == "[]")
+        const language = localStorage.getItem("language") || "en"
 
-        const nothingHere = document.getElementById("nothingHere")
-        const portfolioElementsWrapper = document.querySelector(".portfolioElementsWrapper")
-        const portfolioContentWrapper = document.querySelector(".portfolioContentWrapper")
-        if (JSON.stringify(content) == "[]") {
-            console.log("hey")
-            portfolioElementsWrapper.style.display = "none"
-            nothingHere.style.display = "flex"
-            portfolioContentWrapper.style.display = "flex"
+        const HOST_ROUTE = "http://localhost:7777" // change this
+
+
+        window.addEventListener("load", (event) => {
+            // translate 
+            if (language) {
+                changeLanguage(language)
+            }
+
+            if ("<%- isPreview %>" == "true"){
+                adaptatePreview()
+            } else {
+                adaptateProject()
+                changeButtonState()
+            }
+        })
+
+        let contentLang
+        if (language != "ru") {
+            contentLang = 0
+        } else {
+            contentLang = 1
+        }
+
+        function adaptatePreview() {
+            // fetch content from API
+            const content = JSON.parse('<%-JSON.stringify(content)%>')
+            const portfolioElementsWrapper = document.getElementById("portfolioElementsWrapper")
+            const nothingHere = document.getElementById("nothingHere")
+            const portfolioContentWrapper = document.querySelector(".portfolioContentWrapper")
+            
+
+            // show content preview
+            if (JSON.stringify(content) == "[]") {
+                portfolioElementsWrapper.style.display = "none"
+                nothingHere.style.display = "flex"
+                portfolioContentWrapper.style.display = "flex"
+
+            } else {
+                content.forEach(project => {
+                    // get project content 
+                    const projectType = "<%- projectTypeDb %>"
+                    const projectNameEn = project["name"][0]
+                    const projectName = project["name"][contentLang]
+                    const projectPreview = `../img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/preview.jpg`
+                    
+                    const uniqueHash = project["unique_hash"]
+
+                    // create elements
+                    const projectWrapperElement = document.createElement("div")
+                    projectWrapperElement.classList.add("portfolioElement")
+                    const projectPreviewElement = document.createElement("img")
+                    projectPreviewElement.src = projectPreview
+                    const projectNameElement = document.createElement("h5")
+                    projectNameElement.innerHTML = projectName
+
+                    portfolioElementsWrapper.appendChild(projectWrapperElement)
+                    projectWrapperElement.appendChild(projectPreviewElement)
+                    projectWrapperElement.appendChild(projectNameElement)
+
+                    // go to full project
+                    projectWrapperElement.addEventListener("click", () => {
+                        window.location.href = `${HOST_ROUTE}/projects/${"<%- projectType %>".toLowerCase()}/${uniqueHash}`
+                        // portfolioElementsWrapper.style.display = "none"
+                        // portfolioContentWrapper.style.display = "flex"
+                        // changeButtonState()
+                    })
+                })
+            }
+        }
+
+        function adaptateProject() {
+            const portfolioHeader = document.getElementById("portfolioHeader")
+            projectName = portfolioHeader.innerText.split(",")[contentLang]
+            portfolioHeader.innerText = projectName
+        }
+
+        // translation
+        const translations = {
+            en: {
+                "projects-heading": "Projects",
+                "back": 'Back  <img src="../../img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow icon" style="transform: rotate(180deg);">'
+            },
+            ru: {
+                "projects-heading": "Проекты",
+                "back": 'Назад  <img src="../../img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow icon" style="transform: rotate(180deg);">'
+            },
+        }
+
+        const translationElements = document.querySelectorAll("[data-translation]")
+
+        function changeLanguage(language) {
+            translationElements.forEach(translationElement => {
+                try{
+                    translationElement.innerHTML = translations[language][translationElement.getAttribute("data-translation")] || translationElement.innerHTML
+                } catch(err) {
+                }
+        })}
+
+
+
+        // header button
+        const portfolioHeaderButton = document.getElementById("portfolioHeaderButton")
+
+        portfolioHeaderButton.addEventListener("click", () => {
+            const state = portfolioHeaderButton.getAttribute("state")
+
+            if (state === "backHome") {
+                window.location.href = `${HOST_ROUTE}`
+            } else if (state === "backProjects") {
+                const currentUrl = window.location.href.split("/")
+                const projectTypeUrlPosition = currentUrl.length - 2
+                const projectType = currentUrl[projectTypeUrlPosition]
+                window.location.href = `${HOST_ROUTE}/projects/${projectType}`
+            }
+        })
+
+        function changeButtonState() {
+            const state = portfolioHeaderButton.getAttribute("state")
+            
+            if (state === "backHome") {
+                portfolioHeaderButton.setAttribute("state", "backProjects")
+            } else {
+                portfolioHeaderButton.setAttribute("state", "backHome")
+            }
         }
     </script>
 </body>
