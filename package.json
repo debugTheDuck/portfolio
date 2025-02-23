@@ -14,6 +14,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
+    "start": "node --env-file=.env app",
     "test": "node --watch --env-file=.env app"
   },
   "repository": {
