@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="/styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body display-mode="light" isMobile="false">
+    <section class="main" style="flex-direction: unset; justify-content: center; margin-top: 6.25rem;">
+        <section id="projects" style="width: 100%; max-width: 39.375rem;">
+            <div class="projectsChoosingWrapper">
+                <h1 data-translation="projects-heading">Projects</h1>
+                <div class="portfoliosWrapper">
+                    <header>
+                        <h3 id="portfolioHeader"><%= projectType %></h3>
+                        <div class="buttonsWrapper">
+                            <search>
+                                <form action="POST">
+                                    <a href="#portfolioSearch"><img src="/img/icons/button-icons/search-icon.svg" alt="search icon"></a><input name="portfolioSearch" id="portfolioSearch" placeholder="Find something...">
+                                </form>
+                            </search>
+                            <button class="buttonBlue" id="portfolioHeaderButton" state="backHome" data-translation="back">Back <img src="/img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow icon" style="transform: rotate(180deg);"></button>
+                        </div>
+                    </header>
+                    <div id="portfolioElementsWrapper">
+                        <template>
+                            <div class="portfolioElement">
+                                <img src="/img/project-previews/web-design-demo.png">
+                                <h5>Title</h5>
+                            </div>
+                        </template>
+                        <!-- <div class="portfolioElement">
+                            <img src="../img/project-previews/web-design-demo.png">
+                            <h5>Title</h5>
+                        </div><div class="portfolioElement">
+                            <img src="../img/project-previews/web-design-demo.png">
+                            <h5>Title</h5>
+                        </div><div class="portfolioElement">
+                            <img src="../img/project-previews/web-design-demo.png">
+                            <h5>Title</h5>
+                        </div><div class="portfolioElement">
+                            <img src="../img/project-previews/web-design-demo.png">
+                            <h5>Title</h5>
+                        </div> -->
+                    </div>
+                    <div class="portfolioContentWrapper" style="display: none;">
+                        <div id="nothingHere" style="display: none;">
+                            <div class="imgWrapper">
+                                <img src="/img/illustrations/nothing-in-here-illustration.svg" alt="nothing in here. i'm going to add more cases soon">
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <script>
+        const HOST_ROUTE = "http://localhost:7777" // change this
+
+        const language = localStorage.getItem("language") || "en"
+
+        let contentLang 
+        if (language != "ru") {
+            contentLang = 0
+        } else {
+            contentLang = 1
+        }
+
+        //fetch content from API
+        const content = JSON.parse('<%-JSON.stringify(content)%>')
+
+        window.addEventListener("load", (event) => {
+            // change display mode
+            const displayTheme = localStorage.getItem("displayTheme") || "light"
+            changeDisplayTheme(displayTheme)
+
+            // translate 
+            if (language) {
+                changeLanguage(language)
+            }
+
+            if ("<%- isPreview %>" == "true"){
+                adaptatePreview()
+            } else {
+                adaptateProject()
+                changeButtonState()
+            }
+        })
+
+        function adaptatePreview() {
+            // get elements
+            const portfolioElementsWrapper = document.getElementById("portfolioElementsWrapper")
+            const nothingHere = document.getElementById("nothingHere")
+            const portfolioContentWrapper = document.querySelector(".portfolioContentWrapper")
+            
+
+            // show content preview
+            if (JSON.stringify(content) == "[]") {
+                portfolioElementsWrapper.style.display = "none"
+                nothingHere.style.display = "flex"
+                portfolioContentWrapper.style.display = "flex"
+
+            } else {
+                content.forEach(project => {
+                    // get project content 
+                    const projectType = "<%- projectTypeDb %>"
+                    const projectNameEn = project["name"][0]
+                    const projectName = project["name"][contentLang]
+                    const projectPreview = `../img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/preview.jpg`
+                    
+                    const uniqueHash = project["unique_hash"]
+
+                    // create elements
+                    const projectWrapperElement = document.createElement("div")
+                    projectWrapperElement.classList.add("portfolioElement")
+                    const projectPreviewElement = document.createElement("img")
+                    projectPreviewElement.src = projectPreview
+                    const projectNameElement = document.createElement("h5")
+                    projectNameElement.innerHTML = projectName
+
+                    portfolioElementsWrapper.appendChild(projectWrapperElement)
+                    projectWrapperElement.appendChild(projectPreviewElement)
+                    projectWrapperElement.appendChild(projectNameElement)
+
+                    // go to full project
+                    projectWrapperElement.addEventListener("click", () => {
+                        window.location.href = `${HOST_ROUTE}/projects/${"<%- projectType %>".toLowerCase()}/${uniqueHash}`
+                        // portfolioElementsWrapper.style.display = "none"
+                        // portfolioContentWrapper.style.display = "flex"
+                        // changeButtonState()
+                    })
+                })
+            }
+        }
+
+        function adaptateProject() {
+            // heading text
+            const portfolioHeader = document.getElementById("portfolioHeader")
+            const projectNameHeader = portfolioHeader.innerText.split(",")[contentLang]
+            portfolioHeader.innerText = projectNameHeader
+
+            // hide search
+            const search = document.querySelector("form:has(#portfolioSearch)")
+            search.style.display = "none"
+
+            // get elements
+            const portfolioElementsWrapper = document.getElementById("portfolioElementsWrapper")
+            const portfolioContentWrapper = document.querySelector(".portfolioContentWrapper")
+            portfolioElementsWrapper.style.display = "none"
+
+            // get elements from API response
+            const contentDescription = content["description"][contentLang]
+            const contentContent = content["content"]
+
+            // create elements 
+            const projectDescription = document.createElement("div")
+            projectDescription.classList.add("projectDescription")
+            projectDescription.innerHTML = contentDescription
+
+            // for img
+            const projectType = "<%- projectTypeDb %>"
+            const projectNameEn = content["name"][0]
+            const projectName = content["name"][contentLang]
+            // const projectPreview = `../img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/preview.jpg`
+
+            portfolioContentWrapper.style.display = "flex"
+            portfolioContentWrapper.appendChild(projectDescription)
+
+            contentContent.forEach(contentList => {
+                const contentData = contentList[contentLang]
+
+                const contentInner = contentData[0]
+                const contentType = contentData[1]
+
+                // console.log(`/img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/${contentInner}`)
+                console.log(contentType)
+
+                let contentElement
+                if (contentType == "txt") {
+                    contentElement = document.createElement("div")
+                    contentElement.innerText = contentInner
+                    contentElement.classList.add("text")
+                } else if (contentType == "jpg") {
+                    contentElement = document.createElement("img")
+                    contentElement.src = `/img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/${contentInner}`
+                } else if (contentType == "html") {
+                    contentElement = document.createElement("div")
+                    contentElement.innerHTML = contentInner
+                    contentElement.classList.add("html")
+                }
+                portfolioContentWrapper.appendChild(contentElement)
+            })
+        }
+
+        // translation
+        const translations = {
+            en: {
+                "projects-heading": "Projects",
+                "back": 'Back  <img src="../../img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow icon" style="transform: rotate(180deg);">'
+            },
+            ru: {
+                "projects-heading": "Проекты",
+                "back": 'Назад  <img src="../../img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow icon" style="transform: rotate(180deg);">'
+            },
+        }
+
+        const translationElements = document.querySelectorAll("[data-translation]")
+
+        function changeLanguage(language) {
+            translationElements.forEach(translationElement => {
+                try{
+                    translationElement.innerHTML = translations[language][translationElement.getAttribute("data-translation")] || translationElement.innerHTML
+                } catch(err) {
+                }
+        })}
+
+
+        // display theme
+        function changeDisplayTheme (mode) {
+            const body = document.querySelector("body")
+            body.setAttribute("display-mode", mode)
+            if (mode == "dark") {
+                const nothingHereImg = document.querySelector("#nothingHere img")
+                nothingHereImg.src = "/img/illustrations/nothing-in-here-dark-illustration.svg"
+            }
+        }
+
+        // project search
+        const searchInput = document.getElementById("portfolioSearch")
+        searchInput.addEventListener("input", (event) => {
+            const searchQuery = event.target.value.toLowerCase()
+            const portfolioElements = document.querySelectorAll(".portfolioElement")
+            portfolioElements.forEach(portfolioElement => {
+                const projectContent = portfolioElement.innerText.toLowerCase()
+                if (projectContent.includes(searchQuery)) {
+                    portfolioElement.style.display = "flex"
+                } else {
+                    portfolioElement.style.display = "none"
+                }
+            })
+            if (searchQuery === "") {
+                portfolioElements.forEach(portfolioElement => {
+                    portfolioElement.style.display = "flex"
+                })
+            }
+        })
+
+
+        // header button
+        const portfolioHeaderButton = document.getElementById("portfolioHeaderButton")
+
+        portfolioHeaderButton.addEventListener("click", () => {
+            const state = portfolioHeaderButton.getAttribute("state")
+
+            if (state === "backHome") {
+                window.location.href = `${HOST_ROUTE}`
+            } else if (state === "backProjects") {
+                const currentUrl = window.location.href.split("/")
+                const projectTypeUrlPosition = currentUrl.length - 2
+                const projectType = currentUrl[projectTypeUrlPosition]
+                window.location.href = `${HOST_ROUTE}/projects/${projectType}`
+            }
+        })
+
+        function changeButtonState() {
+            const state = portfolioHeaderButton.getAttribute("state")
+            
+            if (state === "backHome") {
+                portfolioHeaderButton.setAttribute("state", "backProjects")
+            } else {
+                portfolioHeaderButton.setAttribute("state", "backHome")
+            }
+        }
+    </script>
+</body>
+</html>

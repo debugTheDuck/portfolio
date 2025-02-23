@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "debugtheduck": "file:",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
+    "install": "^0.13.0",
+    "sqlite3": "^5.1.7"
+  },
+  "name": "debugtheduck",
+  "version": "1.0.0",
+  "description": "Personal website of Ruslan Abduramanov (debugtheduck)",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env app",
+    "test": "node --watch --env-file=.env app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "portfolio"
+  },
+  "author": "debugtheduck (Ruslan Abduramanov)",
+  "license": "MIT"
+}

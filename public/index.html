@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruslan Abduramanov</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body display-mode="light" isMobile="false">
+    <div class="CVLanguageWrapper" isActive="false">
+        <div class="CVLanguage">
+            <h4 data-translation="cv-heading" style="color:black">Choose CV language:</h4>
+            <div class="CVWrapper">
+                <a href="./img/cvs/CV-en.pdf" download="CV Ruslan Abduramanov" class="CVEn">English</a>
+                <a href="./img/cvs/CV-ru.pdf" download="CV Ruslan Abduramanov" class="CVRu">Русский</a>
+            </div>
+        </div>
+    </div>
+
+
+    <header class="mainHeader">
+        <nav>
+            <a id="headerHome" data-translation="home">Home</a>
+            <a id="headerProjects" data-translation="projects">Projects</a>
+            <a id="headerExperience" data-translation="experience">Experience</a>
+            <a id="headerEducation" data-translation="education">Education</a>
+            <a id="headerAboutMe" data-translation="about-me">About me</a>
+            <a id="headerContactMe" data-translation="contact-me-contact">Contact me</a>
+        </nav>
+
+        <div class="buttonsWrapper" >
+            <div class="dropDownWrapper">
+                <button class="dropdownButton">
+                    <span data-translation="language-indicator">En</span><img src="img/icons/nav/drop-down-icon.svg" alt="drop down icon">
+                </button>
+                <div class="dropDownMenu">
+                    <a id="languageHeaderEn" value="en">En</a>
+                    <a id="languageHeaderRu" value="ru">Ру</a>
+                </div> 
+            </div>
+            <img id="headerDisplayModeButton" src="img/icons/nav/dark-mode-icon.svg" alt="dark mode icon">
+        </div>
+    </header>
+
+    <section class="main">
+        <aside class="sideNav">
+            <header class="sideNavHeader">
+                <form id="sideNavDisplaySwitch">
+                    <input id="languageEnSegment" value="en" name="languageSegmentInput" type="radio" checked>
+                    <label for="languageEnSegment">En</label>
+                    <input id="languageRuSegment" value="ru" name="languageSegmentInput" type="radio">
+                    <label for="languageRuSegment">Ру</label>
+                </form>
+                <img id="sideNavDisplayModeButton" src="img/icons/nav/dark-mode-icon.svg" alt="dark mode icon">
+            </header>
+            <nav>
+                <a id="sideNavHome" isActive="true" data-translation="home-nav">Home<img id="sideImgHome" src="img/icons/side-nav/home-icon.svg" alt="home icon"></a>
+                <a id="sideNavProjects" isActive="false" data-translation="projects-nav"><img id="sideImgProjects" src="img/icons/side-nav/folder-icon.svg" alt="folder icon">Projects</a>
+                <a id="sideNavExperience" isActive="false" data-translation="experience-nav">Experience<img id="sideImg" src="img/icons/side-nav/case-icon.svg" alt="brief-case icon"></a>
+                <a id="sideNavEducation" isActive="false" data-translation="education-nav"><img id="sideImgEducation" src="img/icons/side-nav/education-icon.svg" alt="education icon">Education</a>
+                <a id="sideNavAboutMe" isActive="false" data-translation="about-me-nav">About me<img id="sideImgAboutMe" src="img/icons/side-nav/person-icon.svg" alt="person icon"></a>
+                <a id="sideNavContactMe" isActive="false" data-translation="contact-me-nav"><img id="sideImgContactMe" src="img/icons/side-nav/mail-icon.svg" alt="mail icon">Contact me</a>
+            </nav>
+        </aside>
+        
+        <div class="mainContent">
+            <section id="home" style="display: flex;">
+                <div class="top">
+                    <div class="aboutMeWrapper">
+                        <div class="aboutMe">
+                            <main>
+                                <h1 data-translation="home-heading">Ruslan Abduramanov</h1>
+                                <div id="bio" data-translation="home-bio">
+                                    <em>Web-Developer</em>, <em>Graphic-Designer</em>, <em>Web-Designer</em><br>
+                                    Uzbekistan, Tashkent<br>
+                                    20-year-old
+                                </div>
+                            </main>
+                            <div class="buttonsWrapper" id="buttonsHome1">
+                                <button class="buttonBlue" id="homeContactMeButton1" data-translation="contact-me-button">Contact me<img id="homeContactMeButtonIcon1" src="img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow in circle icon"></summary>
+                                <button class="buttonBlue showCV" data-translation="download-cv">Download CV<img src="img/icons/button-icons/download-icon.svg" alt="download icon"></a>
+                            </div>
+                        </div>
+                        <img id ="photo1" src="img/photos/photo-main.png" alt="Ruslan Abduramanov">
+                        
+                    </div>
+
+                    <div class="buttonsWrapper" id="buttonsHome2">
+                        <button id="homeContactMeButton2" class="buttonBlue" data-translation="contact-me-button">Contact me<img id="homeContactMeButtonIcon2" src="img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow in circle icon"></summary>
+                        <button class="buttonBlue showCV" data-translation="download-cv">Download CV<img src="img/icons/button-icons/download-icon.svg" alt="download icon"></a>
+                    </div>
+                    
+                    <div id="contactMeSocials" isVisible="false">
+                        <a href="https://github.com/debugtheduck">
+                            <img src="img/logos/socials/github-logo.svg" alt="github logo" title="GitHub">
+                        </a>
+                        <a href="www.linkedin.com/in/ruslan-abduramanov">
+                            <img src="img/logos/socials/linkedin-logo.svg" alt="LinkedIn logo" title="LinkedIn">
+                        </a>
+                        <a href="https://t.me/Ruslan_Abduramanov">
+                            <img src="img/logos/socials/Telegram-logo.svg" alt="Telegram logo" title="Telegram">
+                        </a>
+                        <a href="https://wa.me/qr/7ZPBZRRVMM5TF1">
+                            <img src="img/logos/socials/WhatsApp-logo.svg" alt="WhatsApp logo" title="WhatsApp">
+                        </a>
+                        <a href="mailto:ruslan.abduramanov.eshrefovich@gmail.com">
+                            <img src="img/logos/socials/gmail-icon.png" alt="Mail icon" title="ruslan.abduramanov.eshrefovich@gmail.com">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="techStack">
+                    <h1 data-translation="home-tech-stack">Tech stack</h1>
+                    <div class="techStackIcons">
+                        <div class="techStackWrapper">
+                            <img src="img/logos/tech-stack/JavaScript-logo.svg" alt="JavaScript logo">
+                            JavaScript
+                        </div>
+                        <div class="techStackWrapper" title="JavaScript Front-end Framework">
+                            <img src="img/logos/tech-stack/react-logo.svg" alt="react.js logo">
+                            React
+                        </div>
+                        <div class="techStackWrapper" title="JavaScript Back-end Framework">
+                            <img src="img/logos/tech-stack/node-js-logo.svg" alt="node.js logo">
+                            Node.js
+                        </div>
+                        <div class="techStackWrapper" title="JavaScript Back-end Framework for Node.js">
+                            <img src="img/logos/tech-stack/express-js-logo.svg" alt="express.js logo">
+                            Express.js
+                        </div>
+                        <div class="techStackWrapper">
+                            <img src="img/logos/tech-stack/purple-css-logo.svg" alt="CSS logo">
+                            CSS
+                        </div>
+                        <div class="techStackWrapper" title="CSS Front-end Framework">
+                            <img src="img/logos/tech-stack/tailwind-logo.svg" alt="tailwind logo">
+                            Tailwind
+                        </div>
+                        <div class="techStackWrapper">
+                            <img src="img/logos/tech-stack/html-logo.svg" alt="HTML logo">
+                            HTML
+                        </div>
+                        <div class="techStackWrapper">
+                            <img src="img/logos/tech-stack/python-logo.svg" alt="Python logo">
+                            Python
+                        </div>
+                        <div class="techStackWrapper" title="Python Telegram Bot API Framework">
+                            <img src="img/logos/tech-stack/aiogram-logo.svg" alt="aiogram logo">
+                            Aiogram
+                        </div>
+                        <div class="techStackWrapper"  title="Sqlite3, &#10;PostgreSQL, &#10;MySQL">
+                            <img src="img/logos/tech-stack/database-icon.svg" alt="database icon">
+                            Databases
+                        </div>
+                        <div class="techStackWrapper">
+                            <img src="img/logos/tech-stack/figma-logo.svg" alt="Figma logo">
+                            Figma
+                        </div>
+                        <div class="techStackWrapper">
+                            <img src="img/logos/tech-stack/illustrator-logo.svg" alt="Illustrator logo">
+                            Illustrator
+                        </div>
+                        <div class="techStackWrapper">
+                            <img src="img/logos/tech-stack/photoshop-logo.svg" alt="Photoshop logo">
+                            Photoshop
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" style="display: none;">
+                <div class="top">
+                    <h1 data-translation="experience-heading">Experience</h1>
+                    <div><span data-translation="offer-job">Nowadays I have no full-time job, so I'm opened for job offers. </span><a class="hyperlink contactMeButton" data-translation="contact-me-hyperlink">Contact me <img src="img/icons/other/go-to-arrow-icon.svg" alt="arrow icon"></a></div>
+                </div>
+                <div class="plateShadow">
+                    <div class="lineWrapper">
+                        <div class="line"></div>
+                    </div>
+                    <div class="elementsWrapper">
+                        <div class="element">
+                            <div class="logoWrapper">
+                                <img src="img/logos/education-experience/arkad-audit-logo.png" alt="arkad audit logo">
+                            </div>
+                            <div class="textWrapper">
+                                <div class="mainText">
+                                    <div class="date" data-translation="experience-arkad-audit-date">2024 Nov - 2025 Mar</div>
+                                    <h3 data-translation="experience-arkad-audit">Arkad Audit - Consulting Company</h3>
+                                    <div class="subheading" data-translation="experience-arkad-audit-position">Full-stack Web-Developer, Web-Designer, Telegram Bot-Developer</div>
+                                </div>
+                                <details>
+                                    <summary class="showMore" isActive="false" data-translation="show-more">Show more <img src="img/icons/other/show-more-icon.svg" alt="arrow icon"></summary>
+                                    <div class="details">
+                                        <span data-translation="arkad-audit-details-1">Made a project for optimization of business processes within the company and attraction of new customers using website and Telegram Bots.</span>
+                                        <ul>
+                                            <li data-translation="arkad-audit-details-2">Redesigned the previous primitive website</li>
+                                            <!-- add link -->
+
+                                            <li><span data-translation="arkad-audit-details-3">Made Front-end and Backend of </span><a href="" class="hyperlink" data-translation="arkad-audit-details-4">website <img src="img/icons/other/go-to-arrow-icon.svg" alt="arrow icon"></a></li>
+                                            <li data-translation="arkad-audit-details-5">Made Telegram Bot for optimization of inner processes</li>
+                                            <li><span data-translation="arkad-audit-details-6">Made </span><a href="" class="hyperlink" data-translation="arkad-audit-details-7">Telegram-Bot <img src="img/icons/other/go-to-arrow-icon.svg" alt="arrow icon"></a> <span data-translation="arkad-audit-details-8">for customers:</span></li>
+                                            <ul>
+                                                <li data-translation="arkad-audit-details-9">Consultation through the chat, registration for a consultation</li>
+                                                <li data-translation="arkad-audit-details-10">List of services, price calculator</li>
+                                                <li data-translation="arkad-audit-details-11">Database collection</li>
+                                                <li data-translation="arkad-audit-details-12">Contacts, submitting of job applications, leaving review, etc</li>
+                                            </ul>
+                                        </ul>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="education" style="display: none;">
+                <div class="top">
+                    <h1 data-translation="education-heading">Education</h1>
+                    <span><span data-translation="education-subheading">Mostly I'm self-taught specialist with a great intention of learning. </span><a class="hyperlink contactMeButton" data-translation="contact-me-hyperlink">Contact me <img src="img/icons/other/go-to-arrow-icon.svg" alt="arrow icon"></a></span>
+                </div>
+                <div class="plateShadow">
+                    <div class="lineWrapper">
+                        <div class="line"></div>
+                    </div>
+                    <div class="elementsWrapper">
+                        <div class="element">
+                            <div class="logoWrapper">
+                                <img src="img/logos/education-experience/synergy-logo.png" alt="synergy logo">
+                            </div>
+                            <div class="textWrapper">
+                                <div class="mainText">
+                                    <div class="date" data-translation="education-synergy-date">2024 Nov - 2029 Mar</div>
+                                    <h3 data-translation="education-synergy">Synergy University (online-education)</h3>
+                                    <div class="subheading" data-translation="education-faculty-1">Information Systems and Technology.</div>
+                                    <div class="subHeading" data-translation="education-faculty-2">Web-development</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" style="display: none;">
+                <div id="projectsDefault">
+                    <div class="top">
+                        <h1 data-translation="projects-heading">Projects</h1>
+                        <div><span class="subheading" data-translation="projects-subheading">Choose which portfolio do you want to watch:</span><!--<button class="buttonBlue" data-translation="alternative-view">Alternative view <img src="img/icons/button-icons/eye-icon.svg" alt="eye icon" style="display: inline-block"><img src="img/icons/button-icons/eye-off-icon.svg" alt="eye icon" style="display: none;"></button>--></div>
+                    </div>
+                    <div class="projectsWrapper">
+                        <div class="leftWrapper">
+                            <div class="webDevWrapper">
+                                <img id="webDevEn" src="img/project-banners/web-dev-banner-en.png" alt="web development">
+                                <img id="webDevRu" src="img/project-banners/web-dev-banner-ru.jpg" alt="web development" style="display:none">
+                            </div>
+                        </div>
+                        <div class="rightWrapper">
+                            <div class="top">
+                                <div class="graphDesignWrapper">
+                                    <img id="graphDesignEn" src="img/project-banners/graph-design-banner-en.png" alt="graphic deign">
+                                    <img id="graphDesignRu" src="img/project-banners/graph-design-banner-ru.jpg" alt="graphic deign"  style="display:none">
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <div class="webDesignWrapper">
+                                    <img id="webDesignEn" src="img/project-banners/web-design-banner-en.png" alt="web design">
+                                    <img id="webDesignRu" src="img/project-banners/web-design-banner-ru.jpg" alt="web design" style="display:none">
+                                </div>
+                                <div class="sideProjectsWrapper">
+                                    <img id="sideProjectsEn" src="img/project-banners/side-projects-banner-en.png" alt="side projects">
+                                    <img id="sideProjectsRu" src="img/project-banners/side-projects-banner-ru.jpg" alt="side projects" style="display:none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="projectsAlternative">
+                </div>
+            </section>
+
+            <section id="aboutMe" style="display: none;">
+                <div class="top">
+                    <div class="textWrapper">
+                        <h1 data-translation="about-me-heading">About Me</h1>
+                        <div class="text"><span data-translation="about-me-subheading-1">I'm Ruslan 20-year old </span><em id="aboutMeChangingText">Front-end Web-developer</em><br><span data-translation="about-me-subheading-2">from Uzbekistan also known as </span><em>debugTheDuck</em></div>
+                        <div class="languagesWrapper">
+                            <h4 data-translation="about-me-languages">Languages I speak:</h4>
+                            <div class="languages">
+                                <em class="plate" data-translation="about-me-languages-ru">Russian Native</em>
+                                <em class="plate" data-translation="about-me-languages-en">English B2+</em>
+                                <em class="plate" data-translation="about-me-languages-uz">Uzbek B2</em>
+                                <em class="plate" data-translation="about-me-languages-pol">Polish A2</em>
+                            </div>
+                        </div>
+                    </div>
+                    <img id="photo2" src="img/photos/photo-about-me.png" alt="my photo">
+                    <video id="aboutMeVideoBasketball" src="video/basketball.mp4" style="display:none; height: 10.625rem; width:8.75rem" loop autoplay muted preload="auto">Your browser doesn't support video tag :(</video>
+                </div>
+
+                <div class="employmentPreferencesWrapper">
+                    <h4 data-translation="about-me-employment">Employment type preferences:</h4>
+                    <div class="employmentPreferences">
+                        <div class="employmentPreferencesRow">
+                            <span data-translation="about-me-employment-web-development">Web-Developer:</span> <em class="plate" data-translation="about-me-employment-remote">Remote</em> <em class="plate" data-translation="about-me-employment-office">Office</em> <em class="plate" data-translation="about-me-employment-full-time">Full-time</em> <em class="plate" data-translation="about-me-employment-part-time">Part-time</em> <em class="plate" data-translation="about-me-employment-contract">Contract</em>
+                        </div>
+                        <div class="employmentPreferencesRow"><span data-translation="about-me-employment-graphic-design">Graphic-Designer:</span> <em class="plate" data-translation="about-me-employment-contract">Contract</em></div>
+                        <div class="employmentPreferencesRow"><span data-translation="about-me-employment-web-design">Web-designer:</span> <em class="plate" data-translation="about-me-employment-contract">Contract</em></div>
+                    </div> 
+                </div>
+
+                <div class="socialsWrapper">
+                    <h4 data-translation="about-me-socials">My personal socials:</h4>
+                    <div class="socials">
+                        <a href="www.instagram.com/rusyaka.me"><img src="img/logos/socials/instagram-logo.svg" alt="instagram logo" title="Instagram"></a>
+                        <a href="https://t.me/debugtheduck"><img src="img/logos/socials/telegram-logo-s.svg" alt="telegram logo" title="Telegram Channel"></a>
+                        <a href="https://www.youtube.com/@debugtheduck"><img src="img/logos/socials/youtube-logo.svg" alt="youtube logo" title="YouTube"></a>
+                    </div>
+                </div>
+
+                <div class="hobbiesWrapper">
+                    <h4 data-translation="about-me-hobbies">Hobbies</h4>
+                    <div class="hobbies">
+                        <em id="hobbyBasketball" class="plate" title="2024 Republic Youth League 2nd place&#10;2023 Republic Youth League 2nd place, &#10;2022 Republic Youth League 2nd place, &#10;2022 Uzbekistan 3x3 School League 1st place, &#10;2019 Republic 3x3 League 2nd place, &#10;Lots of 3x3 wins through last 5 years" data-translation="about-me-hobbies-basketball">Basketball</em>
+                        <em id="hobbyCS2"class="plate" title="Nothing special...">CS2</em>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contactMe" style="display: none;">
+                <div class="left">
+                    <div class="top">
+                        <h1 data-translation="contact-me">Contact Me</h1>
+                        <div class="text" data-translation="offer-job">Nowadays I have no full-time job, so I'm opened for job offers</div>
+                    </div>
+                    <div class="contactsWrapper">
+                        <a href="mailto:ruslan.abduramanov.eshrefovich@gmail.com" class="contact"  title="ruslan.abduramanov.eshrefovich@gmail.com"><img src="img/logos/socials/gmail-icon.png" alt="email icon">ruslan.abduramanov.<br id="contactGmailBr" style="display: none;">eshrefovich@gmail.com</a>
+                        <a href="https://t.me/Ruslan_Abduramanov" class="contact" title="Telegram"><img src="img/logos/socials/Telegram-logo.svg" alt="telegram logo">@Ruslan_Abduramanov</a>
+                        <a href="www.linkedin.com/in/ruslan-abduramanov" class="contact" title="LinkedIn"><img src="img/logos/socials/linkedin-logo.svg" alt="linkedin logo">Ruslan Abduramanov</a>
+                        <a href="https://wa.me/qr/7ZPBZRRVMM5TF1" class="contact" title="WhatsApp"><img src="img/logos/socials/WhatsApp-logo.svg" alt="whatsapp logo">Ruslan Abduramanov</a>
+                        <a href="https://github.com/debugtheduck" class="contact" title="GitHub"><img src="img/logos/socials/github-logo.svg" alt="">debugTheDuck</a>
+                    </div>
+                </div>
+                <div class="right">
+                    <img id="photo3" src="img/photos/photo-contact.png" alt="my photo">
+                </div>
+            </section>
+        </div>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>
