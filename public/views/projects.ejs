@@ -62,12 +62,25 @@
     </section>
 
     <script>
-        const language = localStorage.getItem("language") || "en"
-
         const HOST_ROUTE = "http://localhost:7777" // change this
 
+        const language = localStorage.getItem("language") || "en"
+
+        let contentLang 
+        if (language != "ru") {
+            contentLang = 0
+        } else {
+            contentLang = 1
+        }
+
+        //fetch content from API
+        const content = JSON.parse('<%-JSON.stringify(content)%>')
 
         window.addEventListener("load", (event) => {
+            // change display mode
+            const displayTheme = localStorage.getItem("displayTheme") || "light"
+            changeDisplayTheme(displayTheme)
+
             // translate 
             if (language) {
                 changeLanguage(language)
@@ -81,16 +94,8 @@
             }
         })
 
-        let contentLang
-        if (language != "ru") {
-            contentLang = 0
-        } else {
-            contentLang = 1
-        }
-
         function adaptatePreview() {
-            // fetch content from API
-            const content = JSON.parse('<%-JSON.stringify(content)%>')
+            // get elements
             const portfolioElementsWrapper = document.getElementById("portfolioElementsWrapper")
             const nothingHere = document.getElementById("nothingHere")
             const portfolioContentWrapper = document.querySelector(".portfolioContentWrapper")
@@ -136,9 +141,62 @@
         }
 
         function adaptateProject() {
+            // heading text
             const portfolioHeader = document.getElementById("portfolioHeader")
-            projectName = portfolioHeader.innerText.split(",")[contentLang]
-            portfolioHeader.innerText = projectName
+            const projectNameHeader = portfolioHeader.innerText.split(",")[contentLang]
+            portfolioHeader.innerText = projectNameHeader
+
+            // hide search
+            const search = document.querySelector("form:has(#portfolioSearch)")
+            search.style.display = "none"
+
+            // get elements
+            const portfolioElementsWrapper = document.getElementById("portfolioElementsWrapper")
+            const portfolioContentWrapper = document.querySelector(".portfolioContentWrapper")
+            portfolioElementsWrapper.style.display = "none"
+
+            // get elements from API response
+            const contentDescription = content["description"][contentLang]
+            const contentContent = content["content"]
+
+            // create elements 
+            const projectDescription = document.createElement("div")
+            projectDescription.classList.add("projectDescription")
+            projectDescription.innerHTML = contentDescription
+
+            // for img
+            const projectType = "<%- projectTypeDb %>"
+            const projectNameEn = content["name"][0]
+            const projectName = content["name"][contentLang]
+            // const projectPreview = `../img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/preview.jpg`
+
+            portfolioContentWrapper.style.display = "flex"
+            portfolioContentWrapper.appendChild(projectDescription)
+
+            contentContent.forEach(contentList => {
+                const contentData = contentList[contentLang]
+
+                const contentInner = contentData[0]
+                const contentType = contentData[1]
+
+                // console.log(`/img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/${contentInner}`)
+                console.log(contentType)
+
+                let contentElement
+                if (contentType == "txt") {
+                    contentElement = document.createElement("div")
+                    contentElement.innerText = contentInner
+                    contentElement.classList.add("text")
+                } else if (contentType == "jpg") {
+                    contentElement = document.createElement("img")
+                    contentElement.src = `/img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/${contentInner}`
+                } else if (contentType == "html") {
+                    contentElement = document.createElement("div")
+                    contentElement.innerHTML = contentInner
+                    contentElement.classList.add("html")
+                }
+                portfolioContentWrapper.appendChild(contentElement)
+            })
         }
 
         // translation
@@ -163,6 +221,36 @@
                 }
         })}
 
+
+        // display theme
+        function changeDisplayTheme (mode) {
+            const body = document.querySelector("body")
+            body.setAttribute("display-mode", mode)
+            if (mode == "dark") {
+                const nothingHereImg = document.querySelector("#nothingHere img")
+                nothingHereImg.src = "/img/illustrations/nothing-in-here-dark-illustration.svg"
+            }
+        }
+
+        // project search
+        const searchInput = document.getElementById("portfolioSearch")
+        searchInput.addEventListener("input", (event) => {
+            const searchQuery = event.target.value.toLowerCase()
+            const portfolioElements = document.querySelectorAll(".portfolioElement")
+            portfolioElements.forEach(portfolioElement => {
+                const projectContent = portfolioElement.innerText.toLowerCase()
+                if (projectContent.includes(searchQuery)) {
+                    portfolioElement.style.display = "flex"
+                } else {
+                    portfolioElement.style.display = "none"
+                }
+            })
+            if (searchQuery === "") {
+                portfolioElements.forEach(portfolioElement => {
+                    portfolioElement.style.display = "flex"
+                })
+            }
+        })
 
 
         // header button

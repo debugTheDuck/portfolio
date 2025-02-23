@@ -56,26 +56,28 @@ export const renderProject = async (req, res) => {
         content = await response.json()
     }
 
-    let projectTypeDb
-    if (projectType == "Web-development") {
-        projectTypeDb = "web_dev"
-    } else if (projectType == "Web-design") {
-        projectTypeDb = "web_design"
-    } else if (projectType == "Graphic-design") {
-        projectTypeDb = "graph_design"
-    } else if (projectType == "Side-projects") {
-        projectTypeDb = "side_projects"
+    if (JSON.stringify(content) != "[]"){
+        let projectTypeDb
+        if (projectType == "web-development") {
+            projectTypeDb = "web_dev"
+        } else if (projectType == "web-design") {
+            projectTypeDb = "web_design"
+        } else if (projectType == "graphic-design") {
+            projectTypeDb = "graph_design"
+        } else if (projectType == "side-projects") {
+            projectTypeDb = "side_projects"
+        }
+
+        const projectName = content[0]["name"]
+
+        // render page
+        res.render("projects", {
+            isPreview: false,
+            projectType: projectName,
+            content: content[0],
+            projectTypeDb: projectTypeDb
+        })
+    } else {
+        res.render("404")
     }
-
-    const projectName = content[0]["name"]
-    console.log(content)
-    console.log(projectType)
-
-    // render page
-    res.render("projects", {
-        isPreview: false,
-        projectType: projectName,
-        content: content,
-        projectTypeDb: projectTypeDb
-    })
 }

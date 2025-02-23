@@ -1,7 +1,7 @@
 // ONLOAD FUNCTION
 window.addEventListener("load", (event) => {
     console.log("page is fully loaded")
-    let displayTheme = localStorage.getItem("displayTheme") || "light"
+    const displayTheme = localStorage.getItem("displayTheme") || "light"
     changeDisplayTheme(displayTheme)
 
     let isMobileSite = isMobile()
@@ -127,7 +127,7 @@ const translations = {
         "contact-me": "Contact me",
         "language-indicator": "En",
         "home-heading": "Ruslan Abduramanov",
-        "home-bio": "<em>Front-end Web-Developer</em>, <em>Graphic-Designer</em>, <em>Web-Designer</em><br>Uzbekistan, Tashkent<br> 20-year-old",
+        "home-bio": "<em>Web-Developer</em>, <em>Graphic-Designer</em>, <em>Web-Designer</em><br>Uzbekistan, Tashkent<br> 20-year-old",
         "contact-me-button": 'Contact me<img id="homeContactMeButtonIcon1" src="img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow in circle icon">',
         "download-cv": 'Download CV<img src="img/icons/button-icons/download-icon.svg" alt="download icon">',
         "contact-me-hyperlink": 'Contact me <img src="img/icons/other/go-to-arrow-icon.svg" alt="arrow icon">',
@@ -181,7 +181,7 @@ const translations = {
         "about-me-socials": "My personal socials",
         "about-me-hobbies": "Hobbies",
         "about-me-hobbies-basketball": "Basketball",
-        "hobbies-basketball-title": "2024 Республиканская Молодёжная Лига 2ое место\n2023 Республиканская Молодёжная Лига 2ое место, \n2022 Республиканская Молодёжная Лига 2ое место, \n2022 Uzbekistan 3x3 School League 1st place, \n2019 Republic 3x3 League 2nd place, \nLots of 3x3 wins through last 5 years",
+        "hobbies-basketball-title": "2024 Republic Youth League 2nd place\n2023 Republic Youth League 2nd place, \n2022 Republic Youth League 2nd place, \n2022 Uzbekistan 3x3 School League 1st place, \n2019 Republic 3x3 League 2nd place, \nLots of 3x3 wins through last 5 years",
         "hobbies-cs2-title": "Nothing special...",
     },
 
@@ -202,7 +202,7 @@ const translations = {
         "contact-me": "Свяжитесь со мной",
         "language-indicator": "Ру",
         "home-heading": "Руслан Абдураманов",
-        "home-bio": "<em>Фронтенд Веб-разработчик</em>, <em>Графический дизайнер</em>, <em>Веб-дизайнер</em><br>Узбекистан, Ташкент<br> 20 лет",
+        "home-bio": "<em>Веб-разработчик</em>, <em>Графический дизайнер</em>, <em>Веб-дизайнер</em><br>Узбекистан, Ташкент<br> 20 лет",
         "contact-me-button": 'Контакты<img id="homeContactMeButtonIcon1" src="img/icons/button-icons/arrow-in-circle-icon.svg" alt="arrow in circle icon">',
         "download-cv": 'Скачать CV<img src="img/icons/button-icons/download-icon.svg" alt="download icon">',
         "contact-me-hyperlink": 'Свяжитесь со мной <img src="img/icons/other/go-to-arrow-icon.svg" alt="arrow icon">',
@@ -338,12 +338,24 @@ function translateChangingText(language) {
     if (language == "en") {
         professions = ["Web-Developer", "Graphic-Designer", "Web-Designer", "Telegram-Bot-Developer"]
     } else {
-        professions = ["Веь-разработчик", "Графический-дизайнер", "Веб-дизайнер", "Разработчик-Телеграм-Ботов"]
+        professions = ["Веб-разработчик", "Графический-дизайнер", "Веб-дизайнер", "Разработчик-Телеграм-Ботов"]
     }
 }
 
 
 // HOME SECTiON
+
+// photo hover
+const photoMain = document.getElementById("photo1")
+photoMain.addEventListener("mouseenter", () => {
+    console.log("hey")
+    photoMain.src = "/img/photos/photo-main-hover.png"
+})
+photoMain.addEventListener("mouseleave", () => {
+    console.log("hey")
+    photoMain.src = "/img/photos/photo-main.png"
+})
+
 
 // hide CVs
 const CVLanguageWrapper = document.querySelector(".CVLanguageWrapper")
@@ -373,16 +385,43 @@ const homeContactMeButtonIcon2 = document.querySelector("#homeContactMeButtonIco
 const contactMeSocials = document.querySelector("#contactMeSocials")
 
 
+homeContactMeButton1.addEventListener("mouseenter", () => {
+    const isVisible = isContactsVisible()
+    if (isVisible == "false") {
+        photoMain.src = "/img/photos/photo-contact-hover.png"
+    }
+})
+homeContactMeButton2.addEventListener("mouseenter", () => {
+    const isVisible = isContactsVisible()
+    if (isVisible == "false") {
+        photoMain.src = "/img/photos/photo-contact-hover.png"
+    }
+})
+homeContactMeButton1.addEventListener("mouseleave", () => {
+    const isVisible = isContactsVisible()
+    if (isVisible == "false") {
+        photoMain.src = "/img/photos/photo-main.png"
+    }
+})
+homeContactMeButton2.addEventListener("mouseleave", () => {
+    const isVisible = isContactsVisible()
+    if (isVisible == "false") {
+        photoMain.src = "/img/photos/photo-main.png"
+    }
+})
+
 homeContactMeButton1.addEventListener('click', function () {showHideContacts()})
 homeContactMeButton2.addEventListener('click', function () {showHideContacts()})
 
 
 function showHideContacts() {
-    let isVisible = isContactsVisible()
+    const isVisible = isContactsVisible()
     if (isVisible == "false") {
         showContacts()
+        photoMain.src = "/img/photos/photo-contact.png"
     } else {
         hideContacts()
+        photoMain.src = "/img/photos/photo-main.png"
     }
     changeContactVisibilityAttribute(isVisible)
     rotateContactArrow(isVisible)
@@ -634,6 +673,20 @@ async function changingAboutMeText(currentState) {
     }
     await sleep(1000)
 }
+
+
+const aboutMePhoto = document.getElementById("photo2")
+const aboutMeVideoBasketball = document.getElementById("aboutMeVideoBasketball")
+
+hobbyBasketball.addEventListener("mouseenter", () => {
+    aboutMePhoto.style.display = "none"
+    aboutMeVideoBasketball.style.display = "block"
+})
+
+hobbyBasketball.addEventListener("mouseleave", () => {
+    aboutMePhoto.style.display = "block"
+    aboutMeVideoBasketball.style.display = "none"
+})
 
 
 // CONTACT ME
