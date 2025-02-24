@@ -1,4 +1,4 @@
-const HOST_ROUTE = "http://localhost:7777" // change this
+const HOST_ROUTE = "https://debugtheduck.store" // change this
 
 export const renderProjectsPage = async (req, res) => {
     // projectType start with capital letter

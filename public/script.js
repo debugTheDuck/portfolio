@@ -26,7 +26,7 @@ window.addEventListener("load", (event) => {
     changingAboutMeTextFunction()
 })
 
-const HOST_ROUTE = "http://localhost:7777" // change this
+const HOST_ROUTE = window.location.href
 
 function addListeners() {
     for (let navButton of navButtonsSide) {
@@ -245,10 +245,10 @@ const translations = {
         "about-me-languages-uz": "Узбекский B2",
         "about-me-languages-pol": "Польский A2",
         "about-me-employment": "Предпочтения по типу занятости",
-        "about-me-employment-web-development": "Веб-разработчик",
-        "about-me-employment-graphic-design": "Графический дизайнер",
-        "about-me-employment-web-design": "Веб-дизайнер",
-        "about-me-employment-remote": "Удалённая",
+        "about-me-employment-web-development": "Веб-разработчик:",
+        "about-me-employment-graphic-design": "Графический дизайнер:",
+        "about-me-employment-web-design": "Веб-дизайнер:",
+        "about-me-employment-remote": "Удалённая:",
         "about-me-employment-office": "Офис",
         "about-me-employment-full-time": "Полный день",
         "about-me-employment-contract": "Контракт",
@@ -275,10 +275,13 @@ const hobbyCS2 = document.getElementById("hobbyCS2")
 headerSwitchEn.addEventListener("click", function () {changeLanguage("en")}) 
 headerSwitchRu.addEventListener("click", function () {changeLanguage("ru")}) 
 
+const sidebarSwitchEn = document.querySelector("#languageEnSegment")
+const sidebarSwitchRu = document.querySelector("#languageRuSegment")
+sidebarSwitchEn.addEventListener("click", function () {changeLanguage("en")}) 
+sidebarSwitchRu.addEventListener("click", function () {changeLanguage("ru")}) 
 
 function changeLanguage(language) {
-    let sidebarSwitchEn = document.querySelector("#languageEnSegment")
-    let sidebarSwitchRu = document.querySelector("#languageRuSegment")
+
     translationElements.forEach(translationElement => {
         try{
             translationElement.innerHTML = translations[language][translationElement.getAttribute("data-translation")] || translationElement.innerHTML
@@ -286,7 +289,7 @@ function changeLanguage(language) {
         }
     })
 
-
+    console.log("changing language")
     if (language == "ru") {
         // chrome ad block for some reason raises error while running .removeAttribute function, so I should use some funky way to change language switch (:
         // sidebarSwitchEn.removeAttribute("checked")
@@ -296,10 +299,9 @@ function changeLanguage(language) {
         sidebarSwitch.innerHTML = '<input id="languageEnSegment" value="en" name="languageSegmentInput" type="radio" checked><label for="languageEnSegment">En</label><input id="languageRuSegment" value="ru" name="languageSegmentInput" type="radio"><label for="languageRuSegment">Ру</label>'
     }
     changeProjectsPreview(language)
-
-    sidebarSwitchEn = document.querySelector("#languageEnSegment")
-    sidebarSwitchRu = document.querySelector("#languageRuSegment")
-
+    
+    const sidebarSwitchEn = document.querySelector("#languageEnSegment")
+    const sidebarSwitchRu = document.querySelector("#languageRuSegment")
     sidebarSwitchEn.addEventListener("click", function () {changeLanguage("en")}) 
     sidebarSwitchRu.addEventListener("click", function () {changeLanguage("ru")}) 
 
@@ -348,11 +350,9 @@ function translateChangingText(language) {
 // photo hover
 const photoMain = document.getElementById("photo1")
 photoMain.addEventListener("mouseenter", () => {
-    console.log("hey")
     photoMain.src = "/img/photos/photo-main-hover.png"
 })
 photoMain.addEventListener("mouseleave", () => {
-    console.log("hey")
     photoMain.src = "/img/photos/photo-main.png"
 })
 
@@ -453,6 +453,7 @@ function rotateContactArrow(isVisible) {
         var rotateDeg = -90
     } else {
         var rotateDeg = 0
+        
     }
 
     homeContactMeButtonIcon1.style.transform = `rotate(${rotateDeg}deg)`
@@ -562,10 +563,10 @@ const sideProjectsButtons = [document.getElementById("sideProjectsEn"), document
 const projectButtons = [webDevButtons, webDesignButtons, graphDesignButtons, sideProjectsButtons]
 
 const projectsURL = {
-    "webDev": "/web-development",
-    "webDesign": "/web-design",
-    "graphDesign": "/graphic-design",
-    "sideProjects": "/side-projects",
+    "webDev": "web-development",
+    "webDesign": "web-design",
+    "graphDesign": "graphic-design",
+    "sideProjects": "side-projects",
 }
 
 function projectsControl() {
@@ -579,7 +580,7 @@ function projectsControl() {
 function goToProjectPage(keyToUrl) {
     console.log(keyToUrl)
     var goToUrl = projectsURL[keyToUrl]
-    window.location.href = `${HOST_ROUTE}/projects${goToUrl}`
+    window.location.href = `${HOST_ROUTE}projects/${goToUrl}`
 }
 
 

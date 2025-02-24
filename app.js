@@ -17,7 +17,7 @@ import express from "express"
 const app = express()
 
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 7777
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
