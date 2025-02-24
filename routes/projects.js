@@ -12,7 +12,10 @@ const router = express.Router()
 router.get("/web-development", renderProjectsPage)
 router.get("/web-development/*", renderProject)
 router.get("/graphic-design", renderProjectsPage)
+router.get("/graphic-design/*", renderProject)
 router.get("/web-design", renderProjectsPage)
+router.get("/web-design/*", renderProject)
 router.get("/side-projects", renderProjectsPage)
+router.get("/side-projects/*", renderProject)
 
 export default router

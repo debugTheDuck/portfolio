@@ -578,8 +578,8 @@ function projectsControl() {
 }
 
 function goToProjectPage(keyToUrl) {
-    console.log(keyToUrl)
-    var goToUrl = projectsURL[keyToUrl]
+    const goToUrl = projectsURL[keyToUrl]
+    console.log(`${HOST_ROUTE}projects/${goToUrl}`)
     window.location.href = `${HOST_ROUTE}projects/${goToUrl}`
 }
 
