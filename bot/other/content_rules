@@ -1,0 +1,16 @@
+# data should be in this format [
+# PROJECT_TYPE # web_dev, web_design, graph_design or side_projects
+# PROJECT_NAME # might include <a href="" class="hyperlink">NAME OF PROJECT</a> # [en, ru]
+# PREVIEW_PATH # if not included, searching for PROJECT_NAME.jpg # [en, ru]
+# DESCRIPTION # text # [en, ru]
+# CONTENT # should be in this format [["TEXT", "txt"], ["IMAGE_ID", "jpg"], ["HTML", "html"], ...] 
+# ]
+
+When send HTML you should start with !<HTML>
+
+When send img you should send it as file
+
+if text just send text
+You also can include <a href="" class="hyperlink">SOME TEXT</a> to add hyperlink inside text
+
+anything else is not accepted
