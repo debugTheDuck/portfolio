@@ -15,8 +15,9 @@
     --color-dark: #020808;
     --color-light-grey: #EDEDF4;
     --color-light-grey-no-change: #EDEDF4;
-    --color-light-grey-transparent: rgba(237, 237, 244, 0.5);
+    --color-light-grey-transparent: rgba(237, 237, 244, 0.8);
     --color-medium-grey: #DBDBE5;
+    --color-medium-grey-transparent: rgba(219, 219, 229, 0.5);
     --color-dark-grey: #888893;
     --color-black-to-white: #000;
     --color-white-to-light-grey: #fff;
@@ -30,6 +31,7 @@
     --color-dark: #302B37;
     --color-light-grey: #1B181F;
     --color-medium-grey: #0E1013;
+    --color-medium-grey-transparent: rgba(14, 16, 19, 0.5);
     --color-black-to-white: #fff;
     --color-light-grey-transparent: rgba(24, 24, 31, 0.4);
     --color-white-to-light-grey: #1B181F;
@@ -424,7 +426,7 @@ aside nav a[isActive~="true"]{
 }
 
 aside nav a[isActive~="false"]:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--color-medium-grey-transparent);
 }
 
 
@@ -978,6 +980,11 @@ section#contactMe {
     display: inline-flex;
     align-items: center;
     column-gap: 0.5rem;
+}
+
+#contactMe .contactsWrapper .contact:hover {
+    text-decoration-line: underline;
+    color: var(--color-secondary);
 }
 
 #contactMe #photo3 {

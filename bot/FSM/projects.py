@@ -11,7 +11,7 @@ from other.functions import delete_previous_keyboard, save_content_img ,send_fin
 
 load_dotenv(join(dirname(__file__), "../", "../", ".env"))
 RULES_LINK = os.getenv("RULES_LINK")
-PORTFOLIO_LINK = "http://localhost:7777" # CHANGE THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+PORTFOLIO_LINK = "http://debugtheduck.store" # CHANGE THIS
 
 # data should be in this format [
 # PROJECT_TYPE # web_dev, web_design, graph_design or side_projects
@@ -38,7 +38,6 @@ class ProjectsDeleteFSM(StatesGroup):
 class ProjectsEditFSM(StatesGroup):
     change_the_name = State()
  
-
 FSM_projects_router = Router()
 
 
@@ -50,7 +49,6 @@ async def cb_router_projects_add_type(cb: types.CallbackQuery, bot: Bot, state: 
 
     await cb.message.edit_text(
         text = "Enter project name: ",
-        reply_markup = keyboards.projects_add_back_ikb("project_type")
     )
 
     await state.update_data(project_type = project_type)
@@ -65,7 +63,6 @@ async def fsm_projects_add_name(msg: types.Message, bot: Bot, state: FSMContext)
 
     await msg.answer(
         text = "Send project preview as a file",
-        reply_markup = keyboards.projects_add_back_ikb("project_name")
     )
 
     await state.update_data(project_name = project_name)
@@ -86,7 +83,6 @@ async def fsm_projects_add_preview(msg: types.Message, bot: Bot, state: FSMConte
 
         await msg.answer(
             text = "Send project preview as a file",
-            reply_markup = keyboards.projects_add_back_ikb("project_img")
         )
         return
 
@@ -94,7 +90,6 @@ async def fsm_projects_add_preview(msg: types.Message, bot: Bot, state: FSMConte
 
     await msg.answer(
         text = "Now send me a short description of your project:",
-        reply_markup = keyboards.projects_add_back_ikb("project_img")
     )
 
     await state.update_data(project_img = file_id)
@@ -109,7 +104,6 @@ async def fsm_projects_add_description(msg: types.Message, bot: Bot, state: FSMC
 
     await msg.answer(
         text = f"Send content according to <a href='{RULES_LINK}'>rules</a>",
-        reply_markup = keyboards.projects_add_back_ikb("project_description"),
         parse_mode = "HTML"
     )
 
@@ -121,7 +115,6 @@ async def fsm_projects_add_description(msg: types.Message, bot: Bot, state: FSMC
 async def cb_projects_add_add_more(cb: types.CallbackQuery, bot: Bot, state: FSMContext):
     await cb.message.edit_text(
         text = f"Send content according to <a href='{RULES_LINK}'>rules</a>", # CHANGE SiTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        reply_markup = keyboards.projects_add_back_ikb("project_description"),
         parse_mode = "HTML"
     )
 
@@ -148,7 +141,6 @@ async def fsm_projects_add_content(msg: types.Message, bot: Bot, state: FSMConte
     else:
         await msg.answer(
             text = f"You should send content according to <a href='{RULES_LINK}'>rules</a>",
-            reply_markup = keyboards.projects_add_back_ikb("project_content"),
             parse_mode = "HTML"
         )
         return
@@ -277,7 +269,6 @@ async def fsm_projects_add_description(msg: types.Message, bot: Bot, state: FSMC
     if first_content[1] != "jpg":
         await msg.answer(
             text = f"Translate first content:\n\n{first_content[0]}",
-            reply_markup = keyboards.projects_add_back_ikb("project_description"),
             parse_mode = "HTML"
         )
 
@@ -336,10 +327,8 @@ async def fsm_projects_add_content(msg: types.Message, bot: Bot, state: FSMConte
     if upcoming_translation[1] != "jpg":
         await msg.answer(
             text = f"Translate this:\n\n{upcoming_translation[0]}",
-            reply_markup = keyboards.projects_add_back_ikb("project_description"),
             parse_mode = "HTML"
         )
-        
     else:
         await msg.answer_document(
             document = upcoming_translation[0],

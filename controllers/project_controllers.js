@@ -67,7 +67,7 @@ export const renderProject = async (req, res) => {
         } else if (projectType == "side-projects") {
             projectTypeDb = "side_projects"
         }
-
+        
         const projectName = content[0]["name"]
 
         // render page

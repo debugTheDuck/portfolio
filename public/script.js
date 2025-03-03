@@ -248,7 +248,7 @@ const translations = {
         "about-me-employment-web-development": "Веб-разработчик:",
         "about-me-employment-graphic-design": "Графический дизайнер:",
         "about-me-employment-web-design": "Веб-дизайнер:",
-        "about-me-employment-remote": "Удалённая:",
+        "about-me-employment-remote": "Удалённая",
         "about-me-employment-office": "Офис",
         "about-me-employment-full-time": "Полный день",
         "about-me-employment-contract": "Контракт",
