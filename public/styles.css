@@ -474,6 +474,8 @@ img#photo1 {
 
 #buttonsHome2 {
     display: none !important;
+    row-gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 #home .top #contactMeSocials {
@@ -491,7 +493,6 @@ img#photo1 {
 
 
 #home .techStack {
-
     display: flex;
     flex-direction: column;
     row-gap: 1.25rem;
@@ -505,7 +506,7 @@ img#photo1 {
 }
 #home .techStackIcons::after {
     content: "";
-    width: 4.25rem;
+    width: 4.5rem;
 }
 
 #home .techStackIcons img{
@@ -1175,5 +1176,10 @@ section#contactMe {
 
     img#photo1 {
         display: none;
+    }
+
+    #buttonsHome2 {
+        right: 0;
+        flex-direction: column-reverse;
     }
 }

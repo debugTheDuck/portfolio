@@ -80,18 +80,21 @@ async def save_content_img(bot: Bot, data: dict):
         # downloading files and changing names
         for k in range(project_content_counter):
             content = data[f"content{k+1}"][i]
-            content_content = content[0]
             content_type = content[1]
 
-            if content_type == "jpg":
-                file_id = content_content
-                path_content = Path.joinpath(path, f"content{k+1}.jpg")
+            try:
+                if content_type == "jpg":
+                    content_content = content[0]
+                    file_id = content_content
+                    path_content = Path.joinpath(path, f"content{k+1}.jpg")
 
-                await bot.download(
-                    file = file_id,
-                    destination = path_content
-                )
-
-                data[f"content{k+1}"][i][k] = f"content{k+1}.jpg"
+                    await bot.download(
+                        file = file_id,
+                        destination = path_content
+                    )
+                    data[f"content{k+1}"][i][0] = f"content{k+1}.jpg"
+            except IndexError:
+                print("pass")
+                pass
 
     return data

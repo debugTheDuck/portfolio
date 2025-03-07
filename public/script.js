@@ -539,7 +539,12 @@ function showSection(sectionName) {
 }
 
 function scrollToSection(sectionName) {
-    pageSections[sectionName][0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
+    const elementToScroll = pageSections[sectionName][0]
+    if (elementToScroll != [sectionHome, sideNavHome]) {
+        elementToScroll.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
+    } else {
+        elementToScroll.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+    }
 }
 
 function hideNavButtons() {

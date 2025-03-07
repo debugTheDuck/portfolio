@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
     
+    <meta name="theme-color" content="#141117">
     <link rel="icon" type="image/x-icon" href="/img/icons/favicons/duck-icon.png">
     <link rel="stylesheet" href="/styles.css">
 
@@ -115,8 +116,7 @@
                     const projectType = "<%- projectTypeDb %>"
                     const projectNameEn = project["name"][0]
                     const projectName = project["name"][contentLang]
-                    const projectPreview = `../img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/preview.jpg`
-                    
+                    const projectPreview = `../img/projects/${projectType}/${projectNameEn.replaceAll(" ", "-").slice(0, 15)}/${language}/preview.jpg`
                     const uniqueHash = project["unique_hash"]
 
                     // create elements
@@ -182,7 +182,6 @@
                 const contentType = contentData[1]
 
                 // console.log(`/img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/${contentInner}`)
-                console.log(contentType)
 
                 let contentElement
                 if (contentType == "txt") {
@@ -191,7 +190,7 @@
                     contentElement.classList.add("text")
                 } else if (contentType == "jpg") {
                     contentElement = document.createElement("img")
-                    contentElement.src = `/img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/${contentInner}`
+                    contentElement.src = `/img/projects/${projectType}/${projectNameEn.replaceAll(" ", "-").slice(0, 15)}/${language}/${contentInner}`
                 } else if (contentType == "html") {
                     contentElement = document.createElement("div")
                     contentElement.innerHTML = contentInner

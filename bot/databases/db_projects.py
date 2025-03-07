@@ -64,7 +64,7 @@ async def get_hash(project_type, project_name):
         elif project_type == "side_projects":
             sql = "SELECT unique_hash FROM side_projects WHERE name = ?"
 
-        cur.execute(sql, (project_name,))
+        cur.execute(sql, (json.dumps(project_name),))
         [unique_hash] = cur.fetchone()
         
         return unique_hash

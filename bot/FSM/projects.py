@@ -128,7 +128,8 @@ async def fsm_projects_add_content(msg: types.Message, bot: Bot, state: FSMConte
     if msg.content_type == "text":
         content_content = msg.text
         if content_content[0: 7].lower() == "!<html>":
-            content_content = content.replace("</html>", "")
+            content_content = content_content.replace("!<HTML>", "")
+            content_content = content_content.replace("!<html>", "")
             content_type = "html"
         else:
             content_type = "txt"
@@ -300,6 +301,8 @@ async def fsm_projects_add_content(msg: types.Message, bot: Bot, state: FSMConte
     if msg.content_type == "text":
         content_content = msg.text
         if content_content[0: 7].lower() == "!<html>":
+            content_content = content_content.replace("!<HTML>", "")
+            content_content = content_content.replace("!<html>", "")
             content_content_type = "html"
         else:
             content_content_type = "txt"
@@ -322,53 +325,67 @@ async def fsm_projects_add_content(msg: types.Message, bot: Bot, state: FSMConte
 
 
     # sending next content to translate
-    upcoming_translation = data[f"content{counter_translation + 1}"]
+    try:
+        upcoming_translation = data[f"content{counter_translation + 1}"]
 
-    if upcoming_translation[1] != "jpg":
-        await msg.answer(
-            text = f"Translate this:\n\n{upcoming_translation[0]}",
-            parse_mode = "HTML"
-        )
-    else:
-        await msg.answer_document(
-            document = upcoming_translation[0],
-            caption = "Send ru version of this photo:" 
-        )
+        if upcoming_translation[1] != "jpg":
+            await msg.answer(
+                text = f"Translate this:\n\n{upcoming_translation[0]}",
+            )
+        else:
+            await msg.answer_document(
+                document = upcoming_translation[0],
+                caption = "Send ru version of this photo:" 
+            )
 
-    await state.set_state(ProjectsAddFSM.project_content_translation)
+        await state.set_state(ProjectsAddFSM.project_content_translation)
 
-    if counter_translation == counter:
+    except KeyError:
         await msg.answer(text = "Translation completed!")
+        data = await state.get_data()
         await send_final_project(msg, data)
         await msg.answer(
             text = "Add project to database?",
-            reply_markup = keyboards.projects_add_translation_accept_ikb())
+            reply_markup = keyboards.projects_add_translation_accept_ikb()
+            )
         return
+    
+    except Exception as e:
+        await msg.answer(
+            f"Something went wrong: {e}"
+        )
 
 
 @FSM_projects_router.callback_query(F.data == "projects_add_translation_accept")
 async def cb_projects_add_translation_accept(cb: types.CallbackQuery, bot: Bot, state: FSMContext):
-    try:
+    # try:
         data = await state.get_data()
+        # await cb.message.answer(
+        #     f"{data}"
+        # )
+        # await cb.message.answer(
+        #     f"{int(data['counter'])}"
+        # )
         new_data = await save_content_img(bot, data)
-        unique_hash = await db_projects.get_hash(data["project_type"], data["project_name"])
         await db_projects.add_project(new_data)
+        unique_hash = await db_projects.get_hash(data["project_type"], data["project_name"])
+
         await cb.message.edit_text(
             text = f"Project was successfully added. You can watch it here:\n\n{PORTFOLIO_LINK}/projects/{data['project_type']}/en/{unique_hash}\n{PORTFOLIO_LINK}/projects/{data['project_type']}/ru/{unique_hash}",
             reply_markup = keyboards.projects_action_ikb()
         )
 
-    except Exception as e:
-        await cb.message.edit_text(
-            text = f"Something went wrong: {e}"
-        )
+    # except Exception as e:
+    #     await cb.message.edit_text(
+    #         text = f"Something went wrong: {e}"
+    #     )
 
-        await asyncio.sleep(2)
+    #     await asyncio.sleep(2)
 
-        await cb.message.answer(
-            text = "Oh, my superior, what do you want to do with your glorious projects?",
-            reply_markup = keyboards.projects_action_ikb()
-        )
+    #     await cb.message.answer(
+    #         text = "Oh, my superior, what do you want to do with your glorious projects?",
+    #         reply_markup = keyboards.projects_action_ikb()
+    #     )
 
 
 
