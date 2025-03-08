@@ -537,13 +537,13 @@ function hideAllSections() {
 function showSection(sectionName) {
     pageSections[sectionName][0].style.display = "flex"
 }
-
+ 
 function scrollToSection(sectionName) {
     const elementToScroll = pageSections[sectionName][0]
-    if (elementToScroll != [sectionHome, sideNavHome]) {
+    if (elementToScroll.id != "home") {
         elementToScroll.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
     } else {
-        elementToScroll.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+        document.querySelector("#top").scrollIntoView({behavior: "smooth", block: "start", inline:"start"})
     }
 }
 

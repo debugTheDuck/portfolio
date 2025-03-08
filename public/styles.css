@@ -506,7 +506,8 @@ img#photo1 {
 }
 #home .techStackIcons::after {
     content: "";
-    width: 4.5rem;
+    width: 4.25rem;
+    height: auto;
 }
 
 #home .techStackIcons img{
@@ -515,7 +516,6 @@ img#photo1 {
 }
 
 #home .techStackWrapper{
-
     display: inline-flex;
     flex-direction: column;
     align-items: center;

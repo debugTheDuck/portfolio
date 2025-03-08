@@ -124,7 +124,6 @@
                     projectWrapperElement.classList.add("portfolioElement")
                     const projectPreviewElement = document.createElement("img")
                     projectPreviewElement.src = projectPreview
-                    projectPreviewElement.setAttribute("preload")
                     const projectNameElement = document.createElement("h5")
                     projectNameElement.innerHTML = projectName
 
@@ -180,7 +179,7 @@
                 const contentData = contentList[contentLang]
 
                 const contentInner = contentData[0]
-                const contentType = contentData[1]
+                const contentType = contentData[1] 
 
                 // console.log(`/img/projects/${projectType}/${projectNameEn.replace(" ", "-").slice(0, 15)}/${language}/${contentInner}`)
 
@@ -192,7 +191,6 @@
                 } else if (contentType == "jpg") {
                     contentElement = document.createElement("img")
                     contentElement.src = `/img/projects/${projectType}/${projectNameEn.replaceAll(" ", "-").slice(0, 15)}/${language}/${contentInner}`
-                    contentElement.setAttribute("preload")
                 } else if (contentType == "html") {
                     contentElement = document.createElement("div")
                     contentElement.innerHTML = contentInner
