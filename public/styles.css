@@ -504,11 +504,11 @@ img#photo1 {
     column-gap: 2rem;
     row-gap: 1rem;
 }
-#home .techStackIcons::after {
+/* #home .techStackIcons::after {
     content: "";
     width: 4.25rem;
     height: auto;
-}
+} */
 
 #home .techStackIcons img{
     width: 4.5rem;
